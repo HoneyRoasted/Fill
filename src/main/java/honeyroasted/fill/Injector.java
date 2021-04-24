@@ -236,6 +236,11 @@ public class Injector {
     public static class Builder {
         private List<Binding> bindings = new ArrayList<>();
 
+        public Builder append(Builder other) {
+            this.bindings.addAll(other.bindings);
+            return this;
+        }
+
         public Builder bind(Binding binding) {
             this.bindings.add(binding);
             return this;
@@ -261,7 +266,6 @@ public class Injector {
         public MatcherBuilder bind(Class<?> type, Class<? extends Annotation> annotation) {
             return new MatcherBuilder(Matchers.type(type).and(Matchers.annotation(annotation)), this);
         }
-
 
         public MatcherBuilder bind(JavaType type, Class<? extends Annotation> annotation) {
             return new MatcherBuilder(Matchers.type(type).and(Matchers.annotation(annotation)), this);
