@@ -12,7 +12,7 @@ repositories {
 }
 
 dependencies {
-    implementation("com.github.HoneyRoasted:JavaType:master-SNAPSHOT")
+    implementation("com.github.HoneyRoasted:JavaType:87087913a5")
 }
 
 task fatJar(type: Jar) {
