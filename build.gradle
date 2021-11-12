@@ -38,7 +38,7 @@ jars.dependsOn javadocJar
 publishing {
     publications {
         mavenJava(MavenPublication) {
-            artifactId = 'Fill'
+            artifactId = rootProject.name
 
             from components.java
         }
