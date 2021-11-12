@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'maven-publish'
 }
 
 group 'honeyroasted.javatype'
@@ -12,7 +13,7 @@ repositories {
 }
 
 dependencies {
-    implementation("com.github.HoneyRoasted:JavaType:main-SNAPSHOT")
+    implementation("com.github.HoneyRoasted:JavaType:6c101d989c")
 }
 
 task fatJar(type: Jar) {
@@ -33,3 +34,13 @@ jars.dependsOn clean
 jars.dependsOn jar
 jars.dependsOn fatJar
 jars.dependsOn javadocJar
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifactId = 'Fill'
+
+            from components.java
+        }
+    }
+}
