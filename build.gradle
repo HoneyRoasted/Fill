@@ -12,12 +12,12 @@ repositories {
 }
 
 dependencies {
-    implementation("com.github.HoneyRoasted:JavaType:87087913a5")
+    implementation("com.github.HoneyRoasted:JavaType:main-SNAPSHOT")
 }
 
 task fatJar(type: Jar) {
-//    from configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
-   // from sourceSets.main.java
+    from configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    from sourceSets.main.java
 
     classifier("fat")
 }
