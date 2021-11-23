@@ -4,8 +4,7 @@ import honeyroasted.fill.bindings.Binding;
 import honeyroasted.fill.bindings.Matcher;
 import honeyroasted.fill.bindings.Matchers;
 import honeyroasted.fill.bindings.SequenceBinding;
-import honeyroasted.fill.bindings.SimpleBinding;
-import honeyroasted.javatype.JavaType;
+import honeyroasted.javatype.informal.TypeInformal;
 
 import java.lang.annotation.Annotation;
 import java.lang.invoke.MethodType;
@@ -259,7 +258,7 @@ public class Injector {
             return new MatcherBuilder(Matchers.type(type), this);
         }
 
-        public MatcherBuilder bind(JavaType type) {
+        public MatcherBuilder bind(TypeInformal type) {
             return new MatcherBuilder(Matchers.type(type), this);
         }
 
@@ -267,7 +266,7 @@ public class Injector {
             return new MatcherBuilder(Matchers.type(type).and(Matchers.annotation(annotation)), this);
         }
 
-        public MatcherBuilder bind(JavaType type, Class<? extends Annotation> annotation) {
+        public MatcherBuilder bind(TypeInformal type, Class<? extends Annotation> annotation) {
             return new MatcherBuilder(Matchers.type(type).and(Matchers.annotation(annotation)), this);
         }
 

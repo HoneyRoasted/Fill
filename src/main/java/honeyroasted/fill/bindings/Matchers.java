@@ -1,6 +1,7 @@
 package honeyroasted.fill.bindings;
 
-import honeyroasted.javatype.JavaType;
+import honeyroasted.javatype.Types;
+import honeyroasted.javatype.informal.TypeInformal;
 
 import java.lang.annotation.Annotation;
 
@@ -11,10 +12,10 @@ public interface Matchers {
     }
 
     static Matcher type(Class<?> type) {
-        return target -> target.type().getType().isAssignableFrom(type);
+        return target -> Types.type(type).isAssignableTo(target.type());
     }
 
-    static Matcher type(JavaType type) {
+    static Matcher type(TypeInformal type) {
         return target -> type.isAssignableTo(target.type());
     }
 

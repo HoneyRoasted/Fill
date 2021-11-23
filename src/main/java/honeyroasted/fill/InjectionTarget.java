@@ -1,7 +1,8 @@
 package honeyroasted.fill;
 
-import honeyroasted.javatype.JavaType;
-import honeyroasted.javatype.JavaTypes;
+
+import honeyroasted.javatype.Types;
+import honeyroasted.javatype.informal.TypeInformal;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -10,23 +11,23 @@ import java.util.Arrays;
 import java.util.List;
 
 public class InjectionTarget {
-    private JavaType type;
+    private TypeInformal type;
     private List<? extends Annotation> annotations;
 
-    public InjectionTarget(JavaType type, List<? extends Annotation> annotations) {
+    public InjectionTarget(TypeInformal type, List<? extends Annotation> annotations) {
         this.type = type;
         this.annotations = annotations;
     }
 
     public InjectionTarget(Field field) {
-        this(JavaTypes.of(field.getGenericType()), Arrays.asList(field.getAnnotations()));
+        this(Types.type(field.getGenericType()), Arrays.asList(field.getAnnotations()));
     }
 
     public InjectionTarget(Parameter parameter) {
-        this(JavaTypes.of(parameter.getParameterizedType()), Arrays.asList(parameter.getAnnotations()));
+        this(Types.type(parameter.getParameterizedType()), Arrays.asList(parameter.getAnnotations()));
     }
 
-    public JavaType type() {
+    public TypeInformal type() {
         return this.type;
     }
 
