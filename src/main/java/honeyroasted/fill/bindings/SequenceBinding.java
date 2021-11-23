@@ -36,7 +36,6 @@ public class SequenceBinding implements Binding {
                 } else if (result.type() == InjectionResult.Type.ERROR) {
                     throw new InjectionException(String.valueOf(result.value()));
                 }
-
             }
         }
 
