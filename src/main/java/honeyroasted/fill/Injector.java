@@ -28,9 +28,17 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * An injector capable of injecting fields, methods, and constructors
+ */
 public class Injector {
     private Binding binding;
 
+    /**
+     * Creates a new {@link Injector} with the given {@link Binding}
+     *
+     * @param binding The binding for this injector
+     */
     public Injector(Binding binding) {
         this.binding = binding;
     }
@@ -41,56 +49,66 @@ public class Injector {
         return builder;
     }
 
+
     public <T> T createAndInject(Class<T> cls) {
         T t = create(cls);
         inject(t);
         return t;
     }
 
+    /**
+     * Creates a new instance of the given class by attempting to inject into a constructor
+     *
+     * @param cls The class to instantiate
+     * @param <T> The type of the class
+     * @return A new instance of {@code T}
+     */
     public <T> T create(Class<T> cls) {
-        List<InjectionTarget> targets = null;
+        List<InjectionTarget> maxTargets = null;
         Constructor max = null;
 
         for (Constructor constructor : cls.getDeclaredConstructors()) {
             if (Stream.of(constructor.getAnnotations()).anyMatch(a -> a.annotationType().isAnnotationPresent(InjectionAnnotation.class)) || constructor.getParameterCount() == 0) {
-                targets = Stream.of(constructor.getParameters()).map(InjectionTarget::new).collect(Collectors.toList());
+                List<InjectionTarget> targets = Stream.of(constructor.getParameters()).map(InjectionTarget::new).collect(Collectors.toList());
                 if (targets.stream().allMatch(t -> this.binding.claims(t))) {
                     if (max == null || max.getParameterCount() < constructor.getParameterCount()) {
                         max = constructor;
+                        maxTargets = targets;
                     }
                 }
             }
         }
 
         if (max != null) {
-            if (targets.stream().allMatch(t -> this.binding.claims(t))) {
-                List<Object> parameters = new ArrayList<>();
-                for (InjectionTarget target : targets) {
-                    InjectionResult result = this.binding.handle(target);
+            List<Object> parameters = new ArrayList<>();
+            for (InjectionTarget target : maxTargets) {
+                InjectionResult result = this.binding.handle(target);
 
-                    if (result.type() == InjectionResult.Type.SET) {
-                        parameters.add(result.value());
-                    } else if (result.type() == InjectionResult.Type.ERROR) {
-                        throw new InjectionException(String.valueOf(result.type()));
-                    } else {
-                        throw new InjectionException("Cannot ignore constructor param");
-                    }
+                if (result.type() == InjectionResult.Type.SET) {
+                    parameters.add(result.value());
+                } else if (result.type() == InjectionResult.Type.ERROR) {
+                    throw new InjectionException(String.valueOf(result.type()));
+                } else {
+                    throw new InjectionException("Cannot ignore constructor param");
                 }
+            }
 
-                max.trySetAccessible();
-                try {
-                    return (T) max.newInstance(parameters.toArray());
-                } catch (IllegalAccessException | InvocationTargetException | InstantiationException e) {
-                    throw new InjectionException("Failed to inject into constructor", e);
-                }
+            max.trySetAccessible();
+            try {
+                return (T) max.newInstance(parameters.toArray());
+            } catch (IllegalAccessException | InvocationTargetException | InstantiationException e) {
+                throw new InjectionException("Failed to inject into constructor", e);
             }
         } else {
             throw new InjectionException("Could not find applicable injection constructor for " + cls.getName());
         }
-
-        return null;
     }
 
+    /**
+     * Attempts to inject the appropriate fields, and call the appropriate injection methods, on the given object
+     *
+     * @param object The object to inject into
+     */
     public void inject(Object object) {
         if (object != null) {
             getFields(object.getClass()).stream().filter(f -> !Modifier.isStatic(f.getModifiers())).forEach(f -> tryInjection(f, object));
@@ -98,6 +116,11 @@ public class Injector {
         }
     }
 
+    /**
+     * Attempts to inject the appropriate static fields, and call the appropriate injection methods, on the given object
+     *
+     * @param cls The class to inject into
+     */
     public void injectStatic(Class<?> cls) {
         getFields(cls).stream().filter(f -> Modifier.isStatic(f.getModifiers())).forEach(f -> tryInjection(f, null));
         getAllMethods(cls).stream().filter(m -> Modifier.isStatic(m.getModifiers())).forEach(m -> tryInjection(m, null));
@@ -199,23 +222,32 @@ public class Injector {
         Collections.addAll(methods, cl.getMethods());
         Map<Object, Set<Package>> types = new HashMap<>();
         final Set<Package> pkgIndependent = Collections.emptySet();
-        for (Method m : methods) types.put(methodKey(m), pkgIndependent);
+        for (Method m : methods) {
+            types.put(methodKey(m), pkgIndependent);
+        }
         for (Class<?> current = cl; current != null; current = current.getSuperclass()) {
             for (Method m : current.getDeclaredMethods()) {
                 final int mod = m.getModifiers(),
                         access = Modifier.PUBLIC | Modifier.PROTECTED | Modifier.PRIVATE;
-                if (!Modifier.isStatic(mod)) switch (mod & access) {
-                    case Modifier.PUBLIC:
-                        continue;
-                    default:
-                        Set<Package> pkg =
-                                types.computeIfAbsent(methodKey(m), key -> new HashSet<>());
-                        if (pkg != pkgIndependent && pkg.add(current.getPackage())) break;
-                        else continue;
-                    case Modifier.PROTECTED:
-                        if (types.putIfAbsent(methodKey(m), pkgIndependent) != null) continue;
-                        // otherwise fall-through
-                    case Modifier.PRIVATE:
+                if (!Modifier.isStatic(mod)) {
+                    switch (mod & access) {
+                        case Modifier.PUBLIC:
+                            continue;
+                        default:
+                            Set<Package> pkg =
+                                    types.computeIfAbsent(methodKey(m), key -> new HashSet<>());
+                            if (pkg != pkgIndependent && pkg.add(current.getPackage())) {
+                                break;
+                            } else {
+                                continue;
+                            }
+                        case Modifier.PROTECTED:
+                            if (types.putIfAbsent(methodKey(m), pkgIndependent) != null) {
+                                continue;
+                            }
+                            // otherwise fall-through
+                        case Modifier.PRIVATE:
+                    }
                 }
                 methods.add(m);
             }
@@ -228,75 +260,173 @@ public class Injector {
                 MethodType.methodType(m.getReturnType(), m.getParameterTypes()));
     }
 
+    /**
+     * @return A new {@link Builder}
+     */
     public static Builder builder() {
         return new Builder();
     }
 
+    /**
+     * A class for building {@link Injector}s
+     */
     public static class Builder {
         private List<Binding> bindings = new ArrayList<>();
 
+        /**
+         * Appends all the bindings from the given builder to this builder
+         *
+         * @param other The other builder
+         * @return This, for method chaining
+         */
         public Builder append(Builder other) {
             this.bindings.addAll(other.bindings);
             return this;
         }
 
+        /**
+         * Adds a binding to this builder
+         *
+         * @param binding The binding to add
+         * @return This, for method chaining
+         */
         public Builder bind(Binding binding) {
             this.bindings.add(binding);
             return this;
         }
 
+        /**
+         * Adds multiple bindings to this builder
+         *
+         * @param bindings The bindings to add
+         * @return This, for method chaining
+         */
         public Builder bind(Binding... bindings) {
             this.bindings.addAll(Arrays.asList(bindings));
             return this;
         }
 
-        public MatcherBuilder bind(Matcher matcher) {
-            return new MatcherBuilder(matcher, this);
+        /**
+         * Creates a new {@link BindingBuilder} with the given matcher and returns it, the matcher builder may then be
+         * used to bind to a value and continue back into this builder
+         *
+         * @param matcher The matcher to use
+         * @return A new {@link BindingBuilder} referencing this {@link Builder}
+         */
+        public BindingBuilder bind(Matcher matcher) {
+            return new BindingBuilder(matcher, this);
         }
 
-        public MatcherBuilder bind(Class<?> type) {
-            return new MatcherBuilder(Matchers.type(type), this);
+        /**
+         * Creates a new {@link BindingBuilder} with a matcher that matches the given type, the matcher builder may then be
+         * used to bind to a value and continue back into this builder
+         *
+         * @param type The type to use
+         * @return A new {@link BindingBuilder} referencing this {@link Builder}
+         */
+        public BindingBuilder bind(Class<?> type) {
+            return new BindingBuilder(Matchers.type(type), this);
         }
 
-        public MatcherBuilder bind(TypeInformal type) {
-            return new MatcherBuilder(Matchers.type(type), this);
+        /**
+         * Creates a new {@link BindingBuilder} with a matcher that matches the given type, the matcher builder may then be
+         * used to bind to a value and continue back into this builder
+         *
+         * @param type The type to use
+         * @return A new {@link BindingBuilder} referencing this {@link Builder}
+         */
+        public BindingBuilder bind(TypeInformal type) {
+            return new BindingBuilder(Matchers.type(type), this);
         }
 
-        public MatcherBuilder bind(Class<?> type, Class<? extends Annotation> annotation) {
-            return new MatcherBuilder(Matchers.type(type).and(Matchers.annotation(annotation)), this);
+        /**
+         * Creates a new {@link BindingBuilder} with a matcher that matches the given type and the given annotation,
+         * the matcher builder may then be used to bind to a value and continue back into this builder
+         *
+         * @param type The type to use
+         * @param annotation The annotation to use
+         * @return A new {@link BindingBuilder} referencing this {@link Builder}
+         */
+        public BindingBuilder bind(Class<?> type, Class<? extends Annotation> annotation) {
+            return new BindingBuilder(Matchers.type(type).and(Matchers.annotation(annotation)), this);
         }
 
-        public MatcherBuilder bind(TypeInformal type, Class<? extends Annotation> annotation) {
-            return new MatcherBuilder(Matchers.type(type).and(Matchers.annotation(annotation)), this);
+        /**
+         * Creates a new {@link BindingBuilder} with a matcher that matches the given type and the given annotation,
+         * the matcher builder may then be used to bind to a value and continue back into this builder
+         *
+         * @param type The type to use
+         * @param annotation The annotation to use
+         * @return A new {@link BindingBuilder} referencing this {@link Builder}
+         */
+        public BindingBuilder bind(TypeInformal type, Class<? extends Annotation> annotation) {
+            return new BindingBuilder(Matchers.type(type).and(Matchers.annotation(annotation)), this);
         }
 
+        /**
+         * @return A new {@link Injector} with the bindings from this {@link Builder}
+         */
         public Injector build() {
             return new Injector(new SequenceBinding(this.bindings));
         }
 
     }
 
-    public static class MatcherBuilder {
+    /**
+     * An intermediate builder that takes a {@link Matcher} and {@link Builder} and constructs a {@link Binding} and
+     * adds it to the {@link Builder}
+     */
+    public static class BindingBuilder {
         private Matcher matcher;
         private Builder builder;
 
-        public MatcherBuilder(Matcher matcher, Builder builder) {
+        /**
+         * Creates a new {@link BindingBuilder}
+         *
+         * @param matcher The matcher to build from
+         * @param builder The parent builder
+         */
+        public BindingBuilder(Matcher matcher, Builder builder) {
             this.matcher = matcher;
             this.builder = builder;
         }
 
+        /**
+         * Creates a binding with the given instance and adds it to the parent builder
+         *
+         * @param instance The instance to use
+         * @return The parent builder, for method chaining
+         */
         public Builder toInstance(Object instance) {
             return this.builder.bind(this.matcher.toInstance(instance));
         }
 
+        /**
+         * Creates a binding with the given provider and adds it to the parent builder
+         *
+         * @param provider The provider to use
+         * @return The parent builder, for method chaining
+         */
         public Builder toProvider(Supplier<Object> provider) {
             return this.builder.bind(this.matcher.toProvider(provider));
         }
 
+        /**
+         * Creates a binding with the given factory and adds it to the parent builder
+         *
+         * @param factory The instance to use
+         * @return The parent builder, for method chaining
+         */
         public Builder toFactory(Function<InjectionTarget, Object> factory) {
             return this.builder.bind(this.matcher.toFactory(factory));
         }
 
+        /**
+         * Creates a binding with the given factory and adds it to the parent builder
+         *
+         * @param factory The instance to use
+         * @return The parent builder, for method chaining
+         */
         public Builder to(Function<InjectionTarget, InjectionResult> factory) {
             return this.builder.bind(this.matcher.to(factory));
         }

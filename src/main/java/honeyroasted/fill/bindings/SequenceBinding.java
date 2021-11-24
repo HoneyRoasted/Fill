@@ -7,13 +7,28 @@ import honeyroasted.fill.InjectionTarget;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * An implementation of {@link Binding} which contains a list of other bindings and applies the first one which
+ * claims a given target
+ */
 public class SequenceBinding implements Binding {
     private List<Binding> bindings;
 
+    /**
+     * Creates a new {@link SequenceBinding} with the given bindings
+     *
+     * @param bindings The bindings
+     * @return A new {@link SequenceBinding}
+     */
     public static SequenceBinding of(Binding... bindings) {
         return new SequenceBinding(Arrays.asList(bindings));
     }
 
+    /**
+     * Creates a new {@link SequenceBinding}
+     *
+     * @param bindings The bindings
+     */
     public SequenceBinding(List<Binding> bindings) {
         this.bindings = bindings;
     }
