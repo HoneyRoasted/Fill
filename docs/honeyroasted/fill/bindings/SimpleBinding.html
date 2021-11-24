@@ -85,6 +85,8 @@ loadScripts(document, 'script');</script>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">SimpleBinding</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>
 implements <a href="Binding.html" title="interface in honeyroasted.fill.bindings">Binding</a></span></div>
+<div class="block">An implementation of <a href="Binding.html" title="interface in honeyroasted.fill.bindings"><code>Binding</code></a> which claims bindings that pass a <a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/util/function/Predicate.html" title="class or interface in java.util.function" class="external-link"><code>Predicate</code></a> and handles bindings with
+ a <a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/util/function/Function.html" title="class or interface in java.util.function" class="external-link"><code>Function</code></a></div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -98,7 +100,10 @@ implements <a href="Binding.html" title="interface in honeyroasted.fill.bindings
 <div class="table-header col-last">Description</div>
 <div class="col-constructor-name even-row-color"><code><span class="member-name-link"><a href="#%3Cinit%3E(java.util.function.Predicate,java.util.function.Function)">SimpleBinding</a></span>&#8203;(<a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/util/function/Predicate.html" title="class or interface in java.util.function" class="external-link">Predicate</a>&lt;<a href="../InjectionTarget.html" title="class in honeyroasted.fill">InjectionTarget</a>&gt;&nbsp;claimTest,
  <a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/util/function/Function.html" title="class or interface in java.util.function" class="external-link">Function</a>&lt;<a href="../InjectionTarget.html" title="class in honeyroasted.fill">InjectionTarget</a>,&#8203;<a href="../InjectionResult.html" title="class in honeyroasted.fill">InjectionResult</a>&gt;&nbsp;result)</code></div>
-<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-last even-row-color">
+<div class="block">Creates a new <a href="SimpleBinding.html" title="class in honeyroasted.fill.bindings"><code>SimpleBinding</code></a> that claims <a href="../InjectionTarget.html" title="class in honeyroasted.fill"><code>InjectionTarget</code></a>s with the given predicate and handles bindings
+ with the given function</div>
+</div>
 </div>
 </section>
 </li>
@@ -115,10 +120,14 @@ implements <a href="Binding.html" title="interface in honeyroasted.fill.bindings
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table"><code>boolean</code></div>
 <div class="col-second even-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table"><code><span class="member-name-link"><a href="#claims(honeyroasted.fill.InjectionTarget)">claims</a></span>&#8203;(<a href="../InjectionTarget.html" title="class in honeyroasted.fill">InjectionTarget</a>&nbsp;target)</code></div>
-<div class="col-last even-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table">
+<div class="block">Test whether this <a href="Binding.html" title="interface in honeyroasted.fill.bindings"><code>Binding</code></a> handles the given <a href="../InjectionTarget.html" title="class in honeyroasted.fill"><code>InjectionTarget</code></a></div>
+</div>
 <div class="col-first odd-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table"><code><a href="../InjectionResult.html" title="class in honeyroasted.fill">InjectionResult</a></code></div>
 <div class="col-second odd-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table"><code><span class="member-name-link"><a href="#handle(honeyroasted.fill.InjectionTarget)">handle</a></span>&#8203;(<a href="../InjectionTarget.html" title="class in honeyroasted.fill">InjectionTarget</a>&nbsp;target)</code></div>
-<div class="col-last odd-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table">
+<div class="block">Handles the given <a href="../InjectionTarget.html" title="class in honeyroasted.fill"><code>InjectionTarget</code></a></div>
+</div>
 </div>
 </div>
 </div>
@@ -141,6 +150,13 @@ implements <a href="Binding.html" title="interface in honeyroasted.fill.bindings
 <h3>SimpleBinding</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">SimpleBinding</span>&#8203;<span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/util/function/Predicate.html" title="class or interface in java.util.function" class="external-link">Predicate</a>&lt;<a href="../InjectionTarget.html" title="class in honeyroasted.fill">InjectionTarget</a>&gt;&nbsp;claimTest,
  <a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/util/function/Function.html" title="class or interface in java.util.function" class="external-link">Function</a>&lt;<a href="../InjectionTarget.html" title="class in honeyroasted.fill">InjectionTarget</a>,&#8203;<a href="../InjectionResult.html" title="class in honeyroasted.fill">InjectionResult</a>&gt;&nbsp;result)</span></div>
+<div class="block">Creates a new <a href="SimpleBinding.html" title="class in honeyroasted.fill.bindings"><code>SimpleBinding</code></a> that claims <a href="../InjectionTarget.html" title="class in honeyroasted.fill"><code>InjectionTarget</code></a>s with the given predicate and handles bindings
+ with the given function</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>claimTest</code> - The claim predicate</dd>
+<dd><code>result</code> - The binding handler</dd>
+</dl>
 </section>
 </li>
 </ul>
@@ -155,9 +171,15 @@ implements <a href="Binding.html" title="interface in honeyroasted.fill.bindings
 <section class="detail" id="claims(honeyroasted.fill.InjectionTarget)">
 <h3>claims</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">claims</span>&#8203;<span class="parameters">(<a href="../InjectionTarget.html" title="class in honeyroasted.fill">InjectionTarget</a>&nbsp;target)</span></div>
+<div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="Binding.html#claims(honeyroasted.fill.InjectionTarget)">Binding</a></code></span></div>
+<div class="block">Test whether this <a href="Binding.html" title="interface in honeyroasted.fill.bindings"><code>Binding</code></a> handles the given <a href="../InjectionTarget.html" title="class in honeyroasted.fill"><code>InjectionTarget</code></a></div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="Binding.html#claims(honeyroasted.fill.InjectionTarget)">claims</a></code>&nbsp;in interface&nbsp;<code><a href="Binding.html" title="interface in honeyroasted.fill.bindings">Binding</a></code></dd>
+<dt>Parameters:</dt>
+<dd><code>target</code> - The injection target</dd>
+<dt>Returns:</dt>
+<dd>True if this binding handles the given target</dd>
 </dl>
 </section>
 </li>
@@ -165,9 +187,15 @@ implements <a href="Binding.html" title="interface in honeyroasted.fill.bindings
 <section class="detail" id="handle(honeyroasted.fill.InjectionTarget)">
 <h3>handle</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../InjectionResult.html" title="class in honeyroasted.fill">InjectionResult</a></span>&nbsp;<span class="element-name">handle</span>&#8203;<span class="parameters">(<a href="../InjectionTarget.html" title="class in honeyroasted.fill">InjectionTarget</a>&nbsp;target)</span></div>
+<div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="Binding.html#handle(honeyroasted.fill.InjectionTarget)">Binding</a></code></span></div>
+<div class="block">Handles the given <a href="../InjectionTarget.html" title="class in honeyroasted.fill"><code>InjectionTarget</code></a></div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="Binding.html#handle(honeyroasted.fill.InjectionTarget)">handle</a></code>&nbsp;in interface&nbsp;<code><a href="Binding.html" title="interface in honeyroasted.fill.bindings">Binding</a></code></dd>
+<dt>Parameters:</dt>
+<dd><code>target</code> - The injection target</dd>
+<dt>Returns:</dt>
+<dd>The <a href="../InjectionResult.html" title="class in honeyroasted.fill"><code>InjectionResult</code></a> of handling the given target</dd>
 </dl>
 </section>
 </li>

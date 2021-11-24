@@ -81,6 +81,7 @@ loadScripts(document, 'script');</script>
 <hr>
 <div class="type-signature"><span class="modifiers">public interface </span><span class="element-name type-name-label">Matcher</span><span class="extends-implements">
 extends <a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/util/function/Predicate.html" title="class or interface in java.util.function" class="external-link">Predicate</a>&lt;<a href="../InjectionTarget.html" title="class in honeyroasted.fill">InjectionTarget</a>&gt;</span></div>
+<div class="block">Represents a predicate which can match <a href="../InjectionTarget.html" title="class in honeyroasted.fill"><code>InjectionTarget</code></a>s</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -106,16 +107,28 @@ extends <a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/ja
 <div class="col-last even-row-color method-summary-table-tab2 method-summary-table-tab5 method-summary-table">&nbsp;</div>
 <div class="col-first odd-row-color method-summary-table-tab2 method-summary-table-tab5 method-summary-table"><code>default <a href="Binding.html" title="interface in honeyroasted.fill.bindings">Binding</a></code></div>
 <div class="col-second odd-row-color method-summary-table-tab2 method-summary-table-tab5 method-summary-table"><code><span class="member-name-link"><a href="#to(java.util.function.Function)">to</a></span>&#8203;(<a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/util/function/Function.html" title="class or interface in java.util.function" class="external-link">Function</a>&lt;<a href="../InjectionTarget.html" title="class in honeyroasted.fill">InjectionTarget</a>,&#8203;<a href="../InjectionResult.html" title="class in honeyroasted.fill">InjectionResult</a>&gt;&nbsp;factory)</code></div>
-<div class="col-last odd-row-color method-summary-table-tab2 method-summary-table-tab5 method-summary-table">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table-tab2 method-summary-table-tab5 method-summary-table">
+<div class="block">Creates a <a href="Binding.html" title="interface in honeyroasted.fill.bindings"><code>Binding</code></a> from this matcher which claims all <a href="../InjectionTarget.html" title="class in honeyroasted.fill"><code>InjectionTarget</code></a>s this matcher matches,
+ and which handles injections using the given function</div>
+</div>
 <div class="col-first even-row-color method-summary-table-tab2 method-summary-table-tab5 method-summary-table"><code>default <a href="Binding.html" title="interface in honeyroasted.fill.bindings">Binding</a></code></div>
 <div class="col-second even-row-color method-summary-table-tab2 method-summary-table-tab5 method-summary-table"><code><span class="member-name-link"><a href="#toFactory(java.util.function.Function)">toFactory</a></span>&#8203;(<a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/util/function/Function.html" title="class or interface in java.util.function" class="external-link">Function</a>&lt;<a href="../InjectionTarget.html" title="class in honeyroasted.fill">InjectionTarget</a>,&#8203;<a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&gt;&nbsp;factory)</code></div>
-<div class="col-last even-row-color method-summary-table-tab2 method-summary-table-tab5 method-summary-table">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table-tab2 method-summary-table-tab5 method-summary-table">
+<div class="block">Creates a <a href="Binding.html" title="interface in honeyroasted.fill.bindings"><code>Binding</code></a> from this matcher which claims all <a href="../InjectionTarget.html" title="class in honeyroasted.fill"><code>InjectionTarget</code></a>s this matcher matches,
+ and which handles injections using the given function</div>
+</div>
 <div class="col-first odd-row-color method-summary-table-tab2 method-summary-table-tab5 method-summary-table"><code>default <a href="Binding.html" title="interface in honeyroasted.fill.bindings">Binding</a></code></div>
 <div class="col-second odd-row-color method-summary-table-tab2 method-summary-table-tab5 method-summary-table"><code><span class="member-name-link"><a href="#toInstance(java.lang.Object)">toInstance</a></span>&#8203;(<a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&nbsp;instance)</code></div>
-<div class="col-last odd-row-color method-summary-table-tab2 method-summary-table-tab5 method-summary-table">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table-tab2 method-summary-table-tab5 method-summary-table">
+<div class="block">Creates a <a href="Binding.html" title="interface in honeyroasted.fill.bindings"><code>Binding</code></a> from this matcher which claims all <a href="../InjectionTarget.html" title="class in honeyroasted.fill"><code>InjectionTarget</code></a>s this matcher matches,
+ and which handles injections by injecting the given object</div>
+</div>
 <div class="col-first even-row-color method-summary-table-tab2 method-summary-table-tab5 method-summary-table"><code>default <a href="Binding.html" title="interface in honeyroasted.fill.bindings">Binding</a></code></div>
 <div class="col-second even-row-color method-summary-table-tab2 method-summary-table-tab5 method-summary-table"><code><span class="member-name-link"><a href="#toProvider(java.util.function.Supplier)">toProvider</a></span>&#8203;(<a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/util/function/Supplier.html" title="class or interface in java.util.function" class="external-link">Supplier</a>&lt;<a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&gt;&nbsp;provider)</code></div>
-<div class="col-last even-row-color method-summary-table-tab2 method-summary-table-tab5 method-summary-table">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table-tab2 method-summary-table-tab5 method-summary-table">
+<div class="block">Creates a <a href="Binding.html" title="interface in honeyroasted.fill.bindings"><code>Binding</code></a> from this matcher which claims all <a href="../InjectionTarget.html" title="class in honeyroasted.fill"><code>InjectionTarget</code></a>s this matcher matches,
+ and which handles injections by injecting the result of the given supplier</div>
+</div>
 </div>
 </div>
 </div>
@@ -137,24 +150,56 @@ extends <a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/ja
 <section class="detail" id="to(java.util.function.Function)">
 <h3>to</h3>
 <div class="member-signature"><span class="modifiers">default</span>&nbsp;<span class="return-type"><a href="Binding.html" title="interface in honeyroasted.fill.bindings">Binding</a></span>&nbsp;<span class="element-name">to</span>&#8203;<span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/util/function/Function.html" title="class or interface in java.util.function" class="external-link">Function</a>&lt;<a href="../InjectionTarget.html" title="class in honeyroasted.fill">InjectionTarget</a>,&#8203;<a href="../InjectionResult.html" title="class in honeyroasted.fill">InjectionResult</a>&gt;&nbsp;factory)</span></div>
+<div class="block">Creates a <a href="Binding.html" title="interface in honeyroasted.fill.bindings"><code>Binding</code></a> from this matcher which claims all <a href="../InjectionTarget.html" title="class in honeyroasted.fill"><code>InjectionTarget</code></a>s this matcher matches,
+ and which handles injections using the given function</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>factory</code> - The injection function</dd>
+<dt>Returns:</dt>
+<dd>A new <a href="Binding.html" title="interface in honeyroasted.fill.bindings"><code>Binding</code></a></dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="toInstance(java.lang.Object)">
 <h3>toInstance</h3>
 <div class="member-signature"><span class="modifiers">default</span>&nbsp;<span class="return-type"><a href="Binding.html" title="interface in honeyroasted.fill.bindings">Binding</a></span>&nbsp;<span class="element-name">toInstance</span>&#8203;<span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&nbsp;instance)</span></div>
+<div class="block">Creates a <a href="Binding.html" title="interface in honeyroasted.fill.bindings"><code>Binding</code></a> from this matcher which claims all <a href="../InjectionTarget.html" title="class in honeyroasted.fill"><code>InjectionTarget</code></a>s this matcher matches,
+ and which handles injections by injecting the given object</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>instance</code> - The object to inject</dd>
+<dt>Returns:</dt>
+<dd>A new <a href="Binding.html" title="interface in honeyroasted.fill.bindings"><code>Binding</code></a></dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="toProvider(java.util.function.Supplier)">
 <h3>toProvider</h3>
 <div class="member-signature"><span class="modifiers">default</span>&nbsp;<span class="return-type"><a href="Binding.html" title="interface in honeyroasted.fill.bindings">Binding</a></span>&nbsp;<span class="element-name">toProvider</span>&#8203;<span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/util/function/Supplier.html" title="class or interface in java.util.function" class="external-link">Supplier</a>&lt;<a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&gt;&nbsp;provider)</span></div>
+<div class="block">Creates a <a href="Binding.html" title="interface in honeyroasted.fill.bindings"><code>Binding</code></a> from this matcher which claims all <a href="../InjectionTarget.html" title="class in honeyroasted.fill"><code>InjectionTarget</code></a>s this matcher matches,
+ and which handles injections by injecting the result of the given supplier</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>provider</code> - The supplier to generate the injection value</dd>
+<dt>Returns:</dt>
+<dd>A new <a href="Binding.html" title="interface in honeyroasted.fill.bindings"><code>Binding</code></a></dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="toFactory(java.util.function.Function)">
 <h3>toFactory</h3>
 <div class="member-signature"><span class="modifiers">default</span>&nbsp;<span class="return-type"><a href="Binding.html" title="interface in honeyroasted.fill.bindings">Binding</a></span>&nbsp;<span class="element-name">toFactory</span>&#8203;<span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/util/function/Function.html" title="class or interface in java.util.function" class="external-link">Function</a>&lt;<a href="../InjectionTarget.html" title="class in honeyroasted.fill">InjectionTarget</a>,&#8203;<a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&gt;&nbsp;factory)</span></div>
+<div class="block">Creates a <a href="Binding.html" title="interface in honeyroasted.fill.bindings"><code>Binding</code></a> from this matcher which claims all <a href="../InjectionTarget.html" title="class in honeyroasted.fill"><code>InjectionTarget</code></a>s this matcher matches,
+ and which handles injections using the given function</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>factory</code> - The function to generate the injection value</dd>
+<dt>Returns:</dt>
+<dd>A new <a href="Binding.html" title="interface in honeyroasted.fill.bindings"><code>Binding</code></a></dd>
+</dl>
 </section>
 </li>
 <li>

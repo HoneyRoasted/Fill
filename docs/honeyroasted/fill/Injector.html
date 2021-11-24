@@ -80,6 +80,7 @@ loadScripts(document, 'script');</script>
 <hr>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">Injector</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></span></div>
+<div class="block">An injector capable of injecting fields, methods, and constructors</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -93,11 +94,16 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-second">Class</div>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color"><code>static class&nbsp;</code></div>
-<div class="col-second even-row-color"><code><span class="member-name-link"><a href="Injector.Builder.html" title="class in honeyroasted.fill">Injector.Builder</a></span></code></div>
-<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-second even-row-color"><code><span class="member-name-link"><a href="Injector.BindingBuilder.html" title="class in honeyroasted.fill">Injector.BindingBuilder</a></span></code></div>
+<div class="col-last even-row-color">
+<div class="block">An intermediate builder that takes a <a href="bindings/Matcher.html" title="interface in honeyroasted.fill.bindings"><code>Matcher</code></a> and <a href="Injector.Builder.html" title="class in honeyroasted.fill"><code>Injector.Builder</code></a> and constructs a <a href="bindings/Binding.html" title="interface in honeyroasted.fill.bindings"><code>Binding</code></a> and
+ adds it to the <a href="Injector.Builder.html" title="class in honeyroasted.fill"><code>Injector.Builder</code></a></div>
+</div>
 <div class="col-first odd-row-color"><code>static class&nbsp;</code></div>
-<div class="col-second odd-row-color"><code><span class="member-name-link"><a href="Injector.MatcherBuilder.html" title="class in honeyroasted.fill">Injector.MatcherBuilder</a></span></code></div>
-<div class="col-last odd-row-color">&nbsp;</div>
+<div class="col-second odd-row-color"><code><span class="member-name-link"><a href="Injector.Builder.html" title="class in honeyroasted.fill">Injector.Builder</a></span></code></div>
+<div class="col-last odd-row-color">
+<div class="block">A class for building <a href="Injector.html" title="class in honeyroasted.fill"><code>Injector</code></a>s</div>
+</div>
 </div>
 </section>
 </li>
@@ -110,7 +116,9 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-first">Constructor</div>
 <div class="table-header col-last">Description</div>
 <div class="col-constructor-name even-row-color"><code><span class="member-name-link"><a href="#%3Cinit%3E(honeyroasted.fill.bindings.Binding)">Injector</a></span>&#8203;(<a href="bindings/Binding.html" title="interface in honeyroasted.fill.bindings">Binding</a>&nbsp;binding)</code></div>
-<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-last even-row-color">
+<div class="block">Creates a new <a href="Injector.html" title="class in honeyroasted.fill"><code>Injector</code></a> with the given <a href="bindings/Binding.html" title="interface in honeyroasted.fill.bindings"><code>Binding</code></a></div>
+</div>
 </div>
 </section>
 </li>
@@ -130,16 +138,25 @@ loadScripts(document, 'script');</script>
 <div class="col-last even-row-color method-summary-table-tab1 method-summary-table-tab4 method-summary-table">&nbsp;</div>
 <div class="col-first odd-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table"><code>&lt;T&gt;&nbsp;T</code></div>
 <div class="col-second odd-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table"><code><span class="member-name-link"><a href="#create(java.lang.Class)">create</a></span>&#8203;(<a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/Class.html" title="class or interface in java.lang" class="external-link">Class</a>&lt;T&gt;&nbsp;cls)</code></div>
-<div class="col-last odd-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table">
+<div class="block">Creates a new instance of the given class by attempting to inject into a constructor</div>
+</div>
 <div class="col-first even-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table"><code>&lt;T&gt;&nbsp;T</code></div>
 <div class="col-second even-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table"><code><span class="member-name-link"><a href="#createAndInject(java.lang.Class)">createAndInject</a></span>&#8203;(<a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/Class.html" title="class or interface in java.lang" class="external-link">Class</a>&lt;T&gt;&nbsp;cls)</code></div>
-<div class="col-last even-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table">
+<div class="block">Creates a new instance of the given class by attempting to inject into a constructor,
+ then injects the instance's fields and methods</div>
+</div>
 <div class="col-first odd-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table"><code>void</code></div>
 <div class="col-second odd-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table"><code><span class="member-name-link"><a href="#inject(java.lang.Object)">inject</a></span>&#8203;(<a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&nbsp;object)</code></div>
-<div class="col-last odd-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table">
+<div class="block">Attempts to inject the appropriate fields, and call the appropriate injection methods, on the given object</div>
+</div>
 <div class="col-first even-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table"><code>void</code></div>
 <div class="col-second even-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table"><code><span class="member-name-link"><a href="#injectStatic(java.lang.Class)">injectStatic</a></span>&#8203;(<a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/Class.html" title="class or interface in java.lang" class="external-link">Class</a>&lt;?&gt;&nbsp;cls)</code></div>
-<div class="col-last even-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table">
+<div class="block">Attempts to inject the appropriate static fields, and call the appropriate injection methods, on the given object</div>
+</div>
 <div class="col-first odd-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table"><code><a href="Injector.Builder.html" title="class in honeyroasted.fill">Injector.Builder</a></code></div>
 <div class="col-second odd-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table"><code><span class="member-name-link"><a href="#toBuilder()">toBuilder</a></span>()</code></div>
 <div class="col-last odd-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table">&nbsp;</div>
@@ -164,6 +181,11 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="&lt;init&gt;(honeyroasted.fill.bindings.Binding)">
 <h3>Injector</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">Injector</span>&#8203;<span class="parameters">(<a href="bindings/Binding.html" title="interface in honeyroasted.fill.bindings">Binding</a>&nbsp;binding)</span></div>
+<div class="block">Creates a new <a href="Injector.html" title="class in honeyroasted.fill"><code>Injector</code></a> with the given <a href="bindings/Binding.html" title="interface in honeyroasted.fill.bindings"><code>Binding</code></a></div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>binding</code> - The binding for this injector</dd>
+</dl>
 </section>
 </li>
 </ul>
@@ -184,30 +206,63 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="createAndInject(java.lang.Class)">
 <h3>createAndInject</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="type-parameters">&lt;T&gt;</span>&nbsp;<span class="return-type">T</span>&nbsp;<span class="element-name">createAndInject</span>&#8203;<span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/Class.html" title="class or interface in java.lang" class="external-link">Class</a>&lt;T&gt;&nbsp;cls)</span></div>
+<div class="block">Creates a new instance of the given class by attempting to inject into a constructor,
+ then injects the instance's fields and methods</div>
+<dl class="notes">
+<dt>Type Parameters:</dt>
+<dd><code>T</code> - The type of the class</dd>
+<dt>Parameters:</dt>
+<dd><code>cls</code> - The cls to instantiate</dd>
+<dt>Returns:</dt>
+<dd>A new instance of <code>T</code></dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="create(java.lang.Class)">
 <h3>create</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="type-parameters">&lt;T&gt;</span>&nbsp;<span class="return-type">T</span>&nbsp;<span class="element-name">create</span>&#8203;<span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/Class.html" title="class or interface in java.lang" class="external-link">Class</a>&lt;T&gt;&nbsp;cls)</span></div>
+<div class="block">Creates a new instance of the given class by attempting to inject into a constructor</div>
+<dl class="notes">
+<dt>Type Parameters:</dt>
+<dd><code>T</code> - The type of the class</dd>
+<dt>Parameters:</dt>
+<dd><code>cls</code> - The class to instantiate</dd>
+<dt>Returns:</dt>
+<dd>A new instance of <code>T</code></dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="inject(java.lang.Object)">
 <h3>inject</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">inject</span>&#8203;<span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&nbsp;object)</span></div>
+<div class="block">Attempts to inject the appropriate fields, and call the appropriate injection methods, on the given object</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>object</code> - The object to inject into</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="injectStatic(java.lang.Class)">
 <h3>injectStatic</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">injectStatic</span>&#8203;<span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/Class.html" title="class or interface in java.lang" class="external-link">Class</a>&lt;?&gt;&nbsp;cls)</span></div>
+<div class="block">Attempts to inject the appropriate static fields, and call the appropriate injection methods, on the given object</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>cls</code> - The class to inject into</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="builder()">
 <h3>builder</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="Injector.Builder.html" title="class in honeyroasted.fill">Injector.Builder</a></span>&nbsp;<span class="element-name">builder</span>()</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>A new <a href="Injector.Builder.html" title="class in honeyroasted.fill"><code>Injector.Builder</code></a></dd>
+</dl>
 </section>
 </li>
 </ul>

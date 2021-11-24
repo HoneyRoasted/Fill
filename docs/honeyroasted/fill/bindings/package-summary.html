@@ -62,11 +62,17 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-first">Interface</div>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color"><a href="Binding.html" title="interface in honeyroasted.fill.bindings">Binding</a></div>
-<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-last even-row-color">
+<div class="block">Represents an injection binding</div>
+</div>
 <div class="col-first odd-row-color"><a href="Matcher.html" title="interface in honeyroasted.fill.bindings">Matcher</a></div>
-<div class="col-last odd-row-color">&nbsp;</div>
+<div class="col-last odd-row-color">
+<div class="block">Represents a predicate which can match <a href="../InjectionTarget.html" title="class in honeyroasted.fill"><code>InjectionTarget</code></a>s</div>
+</div>
 <div class="col-first even-row-color"><a href="Matchers.html" title="interface in honeyroasted.fill.bindings">Matchers</a></div>
-<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-last even-row-color">
+<div class="block">Utility interface for constructing common <a href="Matcher.html" title="interface in honeyroasted.fill.bindings"><code>Matcher</code></a>s</div>
+</div>
 </div>
 </li>
 <li>
@@ -75,11 +81,19 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-first">Class</div>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color"><a href="NonBinding.html" title="class in honeyroasted.fill.bindings">NonBinding</a></div>
-<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-last even-row-color">
+<div class="block">A <a href="Binding.html" title="interface in honeyroasted.fill.bindings"><code>Binding</code></a> implementation that claims no targets</div>
+</div>
 <div class="col-first odd-row-color"><a href="SequenceBinding.html" title="class in honeyroasted.fill.bindings">SequenceBinding</a></div>
-<div class="col-last odd-row-color">&nbsp;</div>
+<div class="col-last odd-row-color">
+<div class="block">An implementation of <a href="Binding.html" title="interface in honeyroasted.fill.bindings"><code>Binding</code></a> which contains a list of other bindings and applies the first one which
+ claims a given target</div>
+</div>
 <div class="col-first even-row-color"><a href="SimpleBinding.html" title="class in honeyroasted.fill.bindings">SimpleBinding</a></div>
-<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-last even-row-color">
+<div class="block">An implementation of <a href="Binding.html" title="interface in honeyroasted.fill.bindings"><code>Binding</code></a> which claims bindings that pass a <a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/util/function/Predicate.html" title="class or interface in java.util.function" class="external-link"><code>Predicate</code></a> and handles bindings with
+ a <a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/util/function/Function.html" title="class or interface in java.util.function" class="external-link"><code>Function</code></a></div>
+</div>
 </div>
 </li>
 </ul>

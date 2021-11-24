@@ -84,6 +84,7 @@ loadScripts(document, 'script');</script>
 <hr>
 <div class="type-signature"><span class="modifiers">public static class </span><span class="element-name type-name-label">Injector.Builder</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></span></div>
+<div class="block">A class for building <a href="Injector.html" title="class in honeyroasted.fill"><code>Injector</code></a>s</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -113,30 +114,51 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table"><code><a href="Injector.Builder.html" title="class in honeyroasted.fill">Injector.Builder</a></code></div>
 <div class="col-second even-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table"><code><span class="member-name-link"><a href="#append(honeyroasted.fill.Injector.Builder)">append</a></span>&#8203;(<a href="Injector.Builder.html" title="class in honeyroasted.fill">Injector.Builder</a>&nbsp;other)</code></div>
-<div class="col-last even-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table">
+<div class="block">Appends all the bindings from the given builder to this builder</div>
+</div>
 <div class="col-first odd-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table"><code><a href="Injector.Builder.html" title="class in honeyroasted.fill">Injector.Builder</a></code></div>
 <div class="col-second odd-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table"><code><span class="member-name-link"><a href="#bind(honeyroasted.fill.bindings.Binding)">bind</a></span>&#8203;(<a href="bindings/Binding.html" title="interface in honeyroasted.fill.bindings">Binding</a>&nbsp;binding)</code></div>
-<div class="col-last odd-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table">
+<div class="block">Adds a binding to this builder</div>
+</div>
 <div class="col-first even-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table"><code><a href="Injector.Builder.html" title="class in honeyroasted.fill">Injector.Builder</a></code></div>
 <div class="col-second even-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table"><code><span class="member-name-link"><a href="#bind(honeyroasted.fill.bindings.Binding...)">bind</a></span>&#8203;(<a href="bindings/Binding.html" title="interface in honeyroasted.fill.bindings">Binding</a>...&nbsp;bindings)</code></div>
-<div class="col-last even-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table"><code><a href="Injector.MatcherBuilder.html" title="class in honeyroasted.fill">Injector.MatcherBuilder</a></code></div>
+<div class="col-last even-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table">
+<div class="block">Adds multiple bindings to this builder</div>
+</div>
+<div class="col-first odd-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table"><code><a href="Injector.BindingBuilder.html" title="class in honeyroasted.fill">Injector.BindingBuilder</a></code></div>
 <div class="col-second odd-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table"><code><span class="member-name-link"><a href="#bind(honeyroasted.fill.bindings.Matcher)">bind</a></span>&#8203;(<a href="bindings/Matcher.html" title="interface in honeyroasted.fill.bindings">Matcher</a>&nbsp;matcher)</code></div>
-<div class="col-last odd-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table"><code><a href="Injector.MatcherBuilder.html" title="class in honeyroasted.fill">Injector.MatcherBuilder</a></code></div>
+<div class="col-last odd-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table">
+<div class="block">Creates a new <a href="Injector.BindingBuilder.html" title="class in honeyroasted.fill"><code>Injector.BindingBuilder</code></a> with the given matcher and returns it, the matcher builder may then be
+ used to bind to a value and continue back into this builder</div>
+</div>
+<div class="col-first even-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table"><code><a href="Injector.BindingBuilder.html" title="class in honeyroasted.fill">Injector.BindingBuilder</a></code></div>
 <div class="col-second even-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table"><code><span class="member-name-link"><a href="#bind(honeyroasted.javatype.informal.TypeInformal)">bind</a></span>&#8203;(honeyroasted.javatype.informal.TypeInformal&nbsp;type)</code></div>
-<div class="col-last even-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table"><code><a href="Injector.MatcherBuilder.html" title="class in honeyroasted.fill">Injector.MatcherBuilder</a></code></div>
+<div class="col-last even-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table">
+<div class="block">Creates a new <a href="Injector.BindingBuilder.html" title="class in honeyroasted.fill"><code>Injector.BindingBuilder</code></a> with a matcher that matches the given type, the matcher builder may then be
+ used to bind to a value and continue back into this builder</div>
+</div>
+<div class="col-first odd-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table"><code><a href="Injector.BindingBuilder.html" title="class in honeyroasted.fill">Injector.BindingBuilder</a></code></div>
 <div class="col-second odd-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table"><code><span class="member-name-link"><a href="#bind(honeyroasted.javatype.informal.TypeInformal,java.lang.Class)">bind</a></span>&#8203;(honeyroasted.javatype.informal.TypeInformal&nbsp;type,
  <a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/Class.html" title="class or interface in java.lang" class="external-link">Class</a>&lt;? extends <a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/annotation/Annotation.html" title="class or interface in java.lang.annotation" class="external-link">Annotation</a>&gt;&nbsp;annotation)</code></div>
-<div class="col-last odd-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table"><code><a href="Injector.MatcherBuilder.html" title="class in honeyroasted.fill">Injector.MatcherBuilder</a></code></div>
+<div class="col-last odd-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table">
+<div class="block">Creates a new <a href="Injector.BindingBuilder.html" title="class in honeyroasted.fill"><code>Injector.BindingBuilder</code></a> with a matcher that matches the given type and the given annotation,
+ the matcher builder may then be used to bind to a value and continue back into this builder</div>
+</div>
+<div class="col-first even-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table"><code><a href="Injector.BindingBuilder.html" title="class in honeyroasted.fill">Injector.BindingBuilder</a></code></div>
 <div class="col-second even-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table"><code><span class="member-name-link"><a href="#bind(java.lang.Class)">bind</a></span>&#8203;(<a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/Class.html" title="class or interface in java.lang" class="external-link">Class</a>&lt;?&gt;&nbsp;type)</code></div>
-<div class="col-last even-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table"><code><a href="Injector.MatcherBuilder.html" title="class in honeyroasted.fill">Injector.MatcherBuilder</a></code></div>
+<div class="col-last even-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table">
+<div class="block">Creates a new <a href="Injector.BindingBuilder.html" title="class in honeyroasted.fill"><code>Injector.BindingBuilder</code></a> with a matcher that matches the given type, the matcher builder may then be
+ used to bind to a value and continue back into this builder</div>
+</div>
+<div class="col-first odd-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table"><code><a href="Injector.BindingBuilder.html" title="class in honeyroasted.fill">Injector.BindingBuilder</a></code></div>
 <div class="col-second odd-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table"><code><span class="member-name-link"><a href="#bind(java.lang.Class,java.lang.Class)">bind</a></span>&#8203;(<a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/Class.html" title="class or interface in java.lang" class="external-link">Class</a>&lt;?&gt;&nbsp;type,
  <a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/Class.html" title="class or interface in java.lang" class="external-link">Class</a>&lt;? extends <a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/annotation/Annotation.html" title="class or interface in java.lang.annotation" class="external-link">Annotation</a>&gt;&nbsp;annotation)</code></div>
-<div class="col-last odd-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table">
+<div class="block">Creates a new <a href="Injector.BindingBuilder.html" title="class in honeyroasted.fill"><code>Injector.BindingBuilder</code></a> with a matcher that matches the given type and the given annotation,
+ the matcher builder may then be used to bind to a value and continue back into this builder</div>
+</div>
 <div class="col-first even-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table"><code><a href="Injector.html" title="class in honeyroasted.fill">Injector</a></code></div>
 <div class="col-second even-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table"><code><span class="member-name-link"><a href="#build()">build</a></span>()</code></div>
 <div class="col-last even-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table">&nbsp;</div>
@@ -175,56 +197,123 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="append(honeyroasted.fill.Injector.Builder)">
 <h3>append</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Injector.Builder.html" title="class in honeyroasted.fill">Injector.Builder</a></span>&nbsp;<span class="element-name">append</span>&#8203;<span class="parameters">(<a href="Injector.Builder.html" title="class in honeyroasted.fill">Injector.Builder</a>&nbsp;other)</span></div>
+<div class="block">Appends all the bindings from the given builder to this builder</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>other</code> - The other builder</dd>
+<dt>Returns:</dt>
+<dd>This, for method chaining</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="bind(honeyroasted.fill.bindings.Binding)">
 <h3>bind</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Injector.Builder.html" title="class in honeyroasted.fill">Injector.Builder</a></span>&nbsp;<span class="element-name">bind</span>&#8203;<span class="parameters">(<a href="bindings/Binding.html" title="interface in honeyroasted.fill.bindings">Binding</a>&nbsp;binding)</span></div>
+<div class="block">Adds a binding to this builder</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>binding</code> - The binding to add</dd>
+<dt>Returns:</dt>
+<dd>This, for method chaining</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="bind(honeyroasted.fill.bindings.Binding...)">
 <h3>bind</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Injector.Builder.html" title="class in honeyroasted.fill">Injector.Builder</a></span>&nbsp;<span class="element-name">bind</span>&#8203;<span class="parameters">(<a href="bindings/Binding.html" title="interface in honeyroasted.fill.bindings">Binding</a>...&nbsp;bindings)</span></div>
+<div class="block">Adds multiple bindings to this builder</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>bindings</code> - The bindings to add</dd>
+<dt>Returns:</dt>
+<dd>This, for method chaining</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="bind(honeyroasted.fill.bindings.Matcher)">
 <h3>bind</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Injector.MatcherBuilder.html" title="class in honeyroasted.fill">Injector.MatcherBuilder</a></span>&nbsp;<span class="element-name">bind</span>&#8203;<span class="parameters">(<a href="bindings/Matcher.html" title="interface in honeyroasted.fill.bindings">Matcher</a>&nbsp;matcher)</span></div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Injector.BindingBuilder.html" title="class in honeyroasted.fill">Injector.BindingBuilder</a></span>&nbsp;<span class="element-name">bind</span>&#8203;<span class="parameters">(<a href="bindings/Matcher.html" title="interface in honeyroasted.fill.bindings">Matcher</a>&nbsp;matcher)</span></div>
+<div class="block">Creates a new <a href="Injector.BindingBuilder.html" title="class in honeyroasted.fill"><code>Injector.BindingBuilder</code></a> with the given matcher and returns it, the matcher builder may then be
+ used to bind to a value and continue back into this builder</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>matcher</code> - The matcher to use</dd>
+<dt>Returns:</dt>
+<dd>A new <a href="Injector.BindingBuilder.html" title="class in honeyroasted.fill"><code>Injector.BindingBuilder</code></a> referencing this <a href="Injector.Builder.html" title="class in honeyroasted.fill"><code>Injector.Builder</code></a></dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="bind(java.lang.Class)">
 <h3>bind</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Injector.MatcherBuilder.html" title="class in honeyroasted.fill">Injector.MatcherBuilder</a></span>&nbsp;<span class="element-name">bind</span>&#8203;<span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/Class.html" title="class or interface in java.lang" class="external-link">Class</a>&lt;?&gt;&nbsp;type)</span></div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Injector.BindingBuilder.html" title="class in honeyroasted.fill">Injector.BindingBuilder</a></span>&nbsp;<span class="element-name">bind</span>&#8203;<span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/Class.html" title="class or interface in java.lang" class="external-link">Class</a>&lt;?&gt;&nbsp;type)</span></div>
+<div class="block">Creates a new <a href="Injector.BindingBuilder.html" title="class in honeyroasted.fill"><code>Injector.BindingBuilder</code></a> with a matcher that matches the given type, the matcher builder may then be
+ used to bind to a value and continue back into this builder</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>type</code> - The type to use</dd>
+<dt>Returns:</dt>
+<dd>A new <a href="Injector.BindingBuilder.html" title="class in honeyroasted.fill"><code>Injector.BindingBuilder</code></a> referencing this <a href="Injector.Builder.html" title="class in honeyroasted.fill"><code>Injector.Builder</code></a></dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="bind(honeyroasted.javatype.informal.TypeInformal)">
 <h3>bind</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Injector.MatcherBuilder.html" title="class in honeyroasted.fill">Injector.MatcherBuilder</a></span>&nbsp;<span class="element-name">bind</span>&#8203;<span class="parameters">(honeyroasted.javatype.informal.TypeInformal&nbsp;type)</span></div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Injector.BindingBuilder.html" title="class in honeyroasted.fill">Injector.BindingBuilder</a></span>&nbsp;<span class="element-name">bind</span>&#8203;<span class="parameters">(honeyroasted.javatype.informal.TypeInformal&nbsp;type)</span></div>
+<div class="block">Creates a new <a href="Injector.BindingBuilder.html" title="class in honeyroasted.fill"><code>Injector.BindingBuilder</code></a> with a matcher that matches the given type, the matcher builder may then be
+ used to bind to a value and continue back into this builder</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>type</code> - The type to use</dd>
+<dt>Returns:</dt>
+<dd>A new <a href="Injector.BindingBuilder.html" title="class in honeyroasted.fill"><code>Injector.BindingBuilder</code></a> referencing this <a href="Injector.Builder.html" title="class in honeyroasted.fill"><code>Injector.Builder</code></a></dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="bind(java.lang.Class,java.lang.Class)">
 <h3>bind</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Injector.MatcherBuilder.html" title="class in honeyroasted.fill">Injector.MatcherBuilder</a></span>&nbsp;<span class="element-name">bind</span>&#8203;<span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/Class.html" title="class or interface in java.lang" class="external-link">Class</a>&lt;?&gt;&nbsp;type,
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Injector.BindingBuilder.html" title="class in honeyroasted.fill">Injector.BindingBuilder</a></span>&nbsp;<span class="element-name">bind</span>&#8203;<span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/Class.html" title="class or interface in java.lang" class="external-link">Class</a>&lt;?&gt;&nbsp;type,
  <a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/Class.html" title="class or interface in java.lang" class="external-link">Class</a>&lt;? extends <a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/annotation/Annotation.html" title="class or interface in java.lang.annotation" class="external-link">Annotation</a>&gt;&nbsp;annotation)</span></div>
+<div class="block">Creates a new <a href="Injector.BindingBuilder.html" title="class in honeyroasted.fill"><code>Injector.BindingBuilder</code></a> with a matcher that matches the given type and the given annotation,
+ the matcher builder may then be used to bind to a value and continue back into this builder</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>type</code> - The type to use</dd>
+<dd><code>annotation</code> - The annotation to use</dd>
+<dt>Returns:</dt>
+<dd>A new <a href="Injector.BindingBuilder.html" title="class in honeyroasted.fill"><code>Injector.BindingBuilder</code></a> referencing this <a href="Injector.Builder.html" title="class in honeyroasted.fill"><code>Injector.Builder</code></a></dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="bind(honeyroasted.javatype.informal.TypeInformal,java.lang.Class)">
 <h3>bind</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Injector.MatcherBuilder.html" title="class in honeyroasted.fill">Injector.MatcherBuilder</a></span>&nbsp;<span class="element-name">bind</span>&#8203;<span class="parameters">(honeyroasted.javatype.informal.TypeInformal&nbsp;type,
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Injector.BindingBuilder.html" title="class in honeyroasted.fill">Injector.BindingBuilder</a></span>&nbsp;<span class="element-name">bind</span>&#8203;<span class="parameters">(honeyroasted.javatype.informal.TypeInformal&nbsp;type,
  <a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/Class.html" title="class or interface in java.lang" class="external-link">Class</a>&lt;? extends <a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/annotation/Annotation.html" title="class or interface in java.lang.annotation" class="external-link">Annotation</a>&gt;&nbsp;annotation)</span></div>
+<div class="block">Creates a new <a href="Injector.BindingBuilder.html" title="class in honeyroasted.fill"><code>Injector.BindingBuilder</code></a> with a matcher that matches the given type and the given annotation,
+ the matcher builder may then be used to bind to a value and continue back into this builder</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>type</code> - The type to use</dd>
+<dd><code>annotation</code> - The annotation to use</dd>
+<dt>Returns:</dt>
+<dd>A new <a href="Injector.BindingBuilder.html" title="class in honeyroasted.fill"><code>Injector.BindingBuilder</code></a> referencing this <a href="Injector.Builder.html" title="class in honeyroasted.fill"><code>Injector.Builder</code></a></dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="build()">
 <h3>build</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Injector.html" title="class in honeyroasted.fill">Injector</a></span>&nbsp;<span class="element-name">build</span>()</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>A new <a href="Injector.html" title="class in honeyroasted.fill"><code>Injector</code></a> with the bindings from this <a href="Injector.Builder.html" title="class in honeyroasted.fill"><code>Injector.Builder</code></a></dd>
+</dl>
 </section>
 </li>
 </ul>

@@ -15,7 +15,6 @@ public class TestObject {
     public String name;
     public String desc;
 
-    @Inject
     public TestObject(@Inject String name) {
         this.name = name;
     }

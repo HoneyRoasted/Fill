@@ -63,9 +63,13 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-first">Class</div>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color all-classes-table-tab1 all-classes-table"><a href="honeyroasted/fill/bindings/Binding.html" title="interface in honeyroasted.fill.bindings">Binding</a></div>
-<div class="col-last even-row-color all-classes-table-tab1 all-classes-table">&nbsp;</div>
+<div class="col-last even-row-color all-classes-table-tab1 all-classes-table">
+<div class="block">Represents an injection binding</div>
+</div>
 <div class="col-first odd-row-color all-classes-table-tab1 all-classes-table"><a href="honeyroasted/fill/DummyObject.html" title="interface in honeyroasted.fill">DummyObject</a></div>
-<div class="col-last odd-row-color all-classes-table-tab1 all-classes-table">&nbsp;</div>
+<div class="col-last odd-row-color all-classes-table-tab1 all-classes-table">
+<div class="block">A marker interface for Objects which should be overwritten by injection</div>
+</div>
 <div class="col-first even-row-color all-classes-table all-classes-table-tab6"><a href="honeyroasted/fill/Inject.html" title="annotation in honeyroasted.fill">Inject</a></div>
 <div class="col-last even-row-color all-classes-table all-classes-table-tab6">
 <div class="block">An annotation which makes a field or method eligible for injection</div>
@@ -75,29 +79,56 @@ loadScripts(document, 'script');</script>
 <div class="block">An annotation which indicates that a given annotation should make a field or method eligible for injection</div>
 </div>
 <div class="col-first even-row-color all-classes-table all-classes-table-tab4"><a href="honeyroasted/fill/InjectionException.html" title="class in honeyroasted.fill">InjectionException</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab4">
+<div class="block">An exception that occurs during injection</div>
+</div>
 <div class="col-first odd-row-color all-classes-table-tab2 all-classes-table"><a href="honeyroasted/fill/InjectionResult.html" title="class in honeyroasted.fill">InjectionResult</a></div>
-<div class="col-last odd-row-color all-classes-table-tab2 all-classes-table">&nbsp;</div>
+<div class="col-last odd-row-color all-classes-table-tab2 all-classes-table">
+<div class="block">The result of an attempted injection</div>
+</div>
 <div class="col-first even-row-color all-classes-table all-classes-table-tab3"><a href="honeyroasted/fill/InjectionResult.Type.html" title="enum class in honeyroasted.fill">InjectionResult.Type</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab3">&nbsp;</div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab3">
+<div class="block">Represents the different kinds of <a href="honeyroasted/fill/InjectionResult.html" title="class in honeyroasted.fill"><code>InjectionResult</code></a>s</div>
+</div>
 <div class="col-first odd-row-color all-classes-table-tab2 all-classes-table"><a href="honeyroasted/fill/InjectionTarget.html" title="class in honeyroasted.fill">InjectionTarget</a></div>
-<div class="col-last odd-row-color all-classes-table-tab2 all-classes-table">&nbsp;</div>
+<div class="col-last odd-row-color all-classes-table-tab2 all-classes-table">
+<div class="block">Represents a target for a single value injection</div>
+</div>
 <div class="col-first even-row-color all-classes-table-tab2 all-classes-table"><a href="honeyroasted/fill/Injector.html" title="class in honeyroasted.fill">Injector</a></div>
-<div class="col-last even-row-color all-classes-table-tab2 all-classes-table">&nbsp;</div>
-<div class="col-first odd-row-color all-classes-table-tab2 all-classes-table"><a href="honeyroasted/fill/Injector.Builder.html" title="class in honeyroasted.fill">Injector.Builder</a></div>
-<div class="col-last odd-row-color all-classes-table-tab2 all-classes-table">&nbsp;</div>
-<div class="col-first even-row-color all-classes-table-tab2 all-classes-table"><a href="honeyroasted/fill/Injector.MatcherBuilder.html" title="class in honeyroasted.fill">Injector.MatcherBuilder</a></div>
-<div class="col-last even-row-color all-classes-table-tab2 all-classes-table">&nbsp;</div>
+<div class="col-last even-row-color all-classes-table-tab2 all-classes-table">
+<div class="block">An injector capable of injecting fields, methods, and constructors</div>
+</div>
+<div class="col-first odd-row-color all-classes-table-tab2 all-classes-table"><a href="honeyroasted/fill/Injector.BindingBuilder.html" title="class in honeyroasted.fill">Injector.BindingBuilder</a></div>
+<div class="col-last odd-row-color all-classes-table-tab2 all-classes-table">
+<div class="block">An intermediate builder that takes a <a href="honeyroasted/fill/bindings/Matcher.html" title="interface in honeyroasted.fill.bindings"><code>Matcher</code></a> and <a href="honeyroasted/fill/Injector.Builder.html" title="class in honeyroasted.fill"><code>Injector.Builder</code></a> and constructs a <a href="honeyroasted/fill/bindings/Binding.html" title="interface in honeyroasted.fill.bindings"><code>Binding</code></a> and
+ adds it to the <a href="honeyroasted/fill/Injector.Builder.html" title="class in honeyroasted.fill"><code>Injector.Builder</code></a></div>
+</div>
+<div class="col-first even-row-color all-classes-table-tab2 all-classes-table"><a href="honeyroasted/fill/Injector.Builder.html" title="class in honeyroasted.fill">Injector.Builder</a></div>
+<div class="col-last even-row-color all-classes-table-tab2 all-classes-table">
+<div class="block">A class for building <a href="honeyroasted/fill/Injector.html" title="class in honeyroasted.fill"><code>Injector</code></a>s</div>
+</div>
 <div class="col-first odd-row-color all-classes-table-tab1 all-classes-table"><a href="honeyroasted/fill/bindings/Matcher.html" title="interface in honeyroasted.fill.bindings">Matcher</a></div>
-<div class="col-last odd-row-color all-classes-table-tab1 all-classes-table">&nbsp;</div>
+<div class="col-last odd-row-color all-classes-table-tab1 all-classes-table">
+<div class="block">Represents a predicate which can match <a href="honeyroasted/fill/InjectionTarget.html" title="class in honeyroasted.fill"><code>InjectionTarget</code></a>s</div>
+</div>
 <div class="col-first even-row-color all-classes-table-tab1 all-classes-table"><a href="honeyroasted/fill/bindings/Matchers.html" title="interface in honeyroasted.fill.bindings">Matchers</a></div>
-<div class="col-last even-row-color all-classes-table-tab1 all-classes-table">&nbsp;</div>
+<div class="col-last even-row-color all-classes-table-tab1 all-classes-table">
+<div class="block">Utility interface for constructing common <a href="honeyroasted/fill/bindings/Matcher.html" title="interface in honeyroasted.fill.bindings"><code>Matcher</code></a>s</div>
+</div>
 <div class="col-first odd-row-color all-classes-table-tab2 all-classes-table"><a href="honeyroasted/fill/bindings/NonBinding.html" title="class in honeyroasted.fill.bindings">NonBinding</a></div>
-<div class="col-last odd-row-color all-classes-table-tab2 all-classes-table">&nbsp;</div>
+<div class="col-last odd-row-color all-classes-table-tab2 all-classes-table">
+<div class="block">A <a href="honeyroasted/fill/bindings/Binding.html" title="interface in honeyroasted.fill.bindings"><code>Binding</code></a> implementation that claims no targets</div>
+</div>
 <div class="col-first even-row-color all-classes-table-tab2 all-classes-table"><a href="honeyroasted/fill/bindings/SequenceBinding.html" title="class in honeyroasted.fill.bindings">SequenceBinding</a></div>
-<div class="col-last even-row-color all-classes-table-tab2 all-classes-table">&nbsp;</div>
+<div class="col-last even-row-color all-classes-table-tab2 all-classes-table">
+<div class="block">An implementation of <a href="honeyroasted/fill/bindings/Binding.html" title="interface in honeyroasted.fill.bindings"><code>Binding</code></a> which contains a list of other bindings and applies the first one which
+ claims a given target</div>
+</div>
 <div class="col-first odd-row-color all-classes-table-tab2 all-classes-table"><a href="honeyroasted/fill/bindings/SimpleBinding.html" title="class in honeyroasted.fill.bindings">SimpleBinding</a></div>
-<div class="col-last odd-row-color all-classes-table-tab2 all-classes-table">&nbsp;</div>
+<div class="col-last odd-row-color all-classes-table-tab2 all-classes-table">
+<div class="block">An implementation of <a href="honeyroasted/fill/bindings/Binding.html" title="interface in honeyroasted.fill.bindings"><code>Binding</code></a> which claims bindings that pass a <a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/util/function/Predicate.html" title="class or interface in java.util.function" class="external-link"><code>Predicate</code></a> and handles bindings with
+ a <a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/util/function/Function.html" title="class or interface in java.util.function" class="external-link"><code>Function</code></a></div>
+</div>
 </div>
 </div>
 </div>

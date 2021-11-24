@@ -80,6 +80,7 @@ loadScripts(document, 'script');</script>
 <hr>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">InjectionResult</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></span></div>
+<div class="block">The result of an attempted injection</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -94,7 +95,9 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color"><code>static class&nbsp;</code></div>
 <div class="col-second even-row-color"><code><span class="member-name-link"><a href="InjectionResult.Type.html" title="enum class in honeyroasted.fill">InjectionResult.Type</a></span></code></div>
-<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-last even-row-color">
+<div class="block">Represents the different kinds of <a href="InjectionResult.html" title="class in honeyroasted.fill"><code>InjectionResult</code></a>s</div>
+</div>
 </div>
 </section>
 </li>
@@ -108,7 +111,9 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-last">Description</div>
 <div class="col-constructor-name even-row-color"><code><span class="member-name-link"><a href="#%3Cinit%3E(honeyroasted.fill.InjectionResult.Type,java.lang.Object)">InjectionResult</a></span>&#8203;(<a href="InjectionResult.Type.html" title="enum class in honeyroasted.fill">InjectionResult.Type</a>&nbsp;type,
  <a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&nbsp;value)</code></div>
-<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-last even-row-color">
+<div class="block">Creates a new <a href="InjectionResult.html" title="class in honeyroasted.fill"><code>InjectionResult</code></a></div>
+</div>
 </div>
 </section>
 </li>
@@ -125,13 +130,17 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table-tab1 method-summary-table-tab4 method-summary-table"><code>static <a href="InjectionResult.html" title="class in honeyroasted.fill">InjectionResult</a></code></div>
 <div class="col-second even-row-color method-summary-table-tab1 method-summary-table-tab4 method-summary-table"><code><span class="member-name-link"><a href="#error(java.lang.String)">error</a></span>&#8203;(<a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;message)</code></div>
-<div class="col-last even-row-color method-summary-table-tab1 method-summary-table-tab4 method-summary-table">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table-tab1 method-summary-table-tab4 method-summary-table">
+<div class="block">Creates an <a href="InjectionResult.html" title="class in honeyroasted.fill"><code>InjectionResult</code></a> of the type <a href="InjectionResult.Type.html#ERROR"><code>InjectionResult.Type.ERROR</code></a> with a value equal to the given error message</div>
+</div>
 <div class="col-first odd-row-color method-summary-table-tab1 method-summary-table-tab4 method-summary-table"><code>static <a href="InjectionResult.html" title="class in honeyroasted.fill">InjectionResult</a></code></div>
 <div class="col-second odd-row-color method-summary-table-tab1 method-summary-table-tab4 method-summary-table"><code><span class="member-name-link"><a href="#ignore()">ignore</a></span>()</code></div>
 <div class="col-last odd-row-color method-summary-table-tab1 method-summary-table-tab4 method-summary-table">&nbsp;</div>
 <div class="col-first even-row-color method-summary-table-tab1 method-summary-table-tab4 method-summary-table"><code>static <a href="InjectionResult.html" title="class in honeyroasted.fill">InjectionResult</a></code></div>
 <div class="col-second even-row-color method-summary-table-tab1 method-summary-table-tab4 method-summary-table"><code><span class="member-name-link"><a href="#of(java.lang.Object)">of</a></span>&#8203;(<a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&nbsp;value)</code></div>
-<div class="col-last even-row-color method-summary-table-tab1 method-summary-table-tab4 method-summary-table">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table-tab1 method-summary-table-tab4 method-summary-table">
+<div class="block">Creates an <a href="InjectionResult.html" title="class in honeyroasted.fill"><code>InjectionResult</code></a> with the given value.</div>
+</div>
 <div class="col-first odd-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table"><code><a href="InjectionResult.Type.html" title="enum class in honeyroasted.fill">InjectionResult.Type</a></code></div>
 <div class="col-second odd-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table"><code><span class="member-name-link"><a href="#type()">type</a></span>()</code></div>
 <div class="col-last odd-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table">&nbsp;</div>
@@ -160,6 +169,12 @@ loadScripts(document, 'script');</script>
 <h3>InjectionResult</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">InjectionResult</span>&#8203;<span class="parameters">(<a href="InjectionResult.Type.html" title="enum class in honeyroasted.fill">InjectionResult.Type</a>&nbsp;type,
  <a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&nbsp;value)</span></div>
+<div class="block">Creates a new <a href="InjectionResult.html" title="class in honeyroasted.fill"><code>InjectionResult</code></a></div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>type</code> - The type of this result</dd>
+<dd><code>value</code> - The value of this result</dd>
+</dl>
 </section>
 </li>
 </ul>
@@ -174,30 +189,57 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="of(java.lang.Object)">
 <h3>of</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="InjectionResult.html" title="class in honeyroasted.fill">InjectionResult</a></span>&nbsp;<span class="element-name">of</span>&#8203;<span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&nbsp;value)</span></div>
+<div class="block">Creates an <a href="InjectionResult.html" title="class in honeyroasted.fill"><code>InjectionResult</code></a> with the given value. If the value is null, the result will be of the type
+ <a href="InjectionResult.Type.html#IGNORE"><code>InjectionResult.Type.IGNORE</code></a>, otherwise it will be of the type <a href="InjectionResult.Type.html#SET"><code>InjectionResult.Type.SET</code></a></div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>value</code> - The value of the result</dd>
+<dt>Returns:</dt>
+<dd>A new <a href="InjectionResult.html" title="class in honeyroasted.fill"><code>InjectionResult</code></a></dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="ignore()">
 <h3>ignore</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="InjectionResult.html" title="class in honeyroasted.fill">InjectionResult</a></span>&nbsp;<span class="element-name">ignore</span>()</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>A new <a href="InjectionResult.html" title="class in honeyroasted.fill"><code>InjectionResult</code></a> of the type <a href="InjectionResult.Type.html#IGNORE"><code>InjectionResult.Type.IGNORE</code></a> with a null value</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="error(java.lang.String)">
 <h3>error</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="InjectionResult.html" title="class in honeyroasted.fill">InjectionResult</a></span>&nbsp;<span class="element-name">error</span>&#8203;<span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;message)</span></div>
+<div class="block">Creates an <a href="InjectionResult.html" title="class in honeyroasted.fill"><code>InjectionResult</code></a> of the type <a href="InjectionResult.Type.html#ERROR"><code>InjectionResult.Type.ERROR</code></a> with a value equal to the given error message</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>message</code> - The error message</dd>
+<dt>Returns:</dt>
+<dd>A new <a href="InjectionResult.html" title="class in honeyroasted.fill"><code>InjectionResult</code></a></dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="value()">
 <h3>value</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></span>&nbsp;<span class="element-name">value</span>()</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>The value of this result (may be null)</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="type()">
 <h3>type</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="InjectionResult.Type.html" title="enum class in honeyroasted.fill">InjectionResult.Type</a></span>&nbsp;<span class="element-name">type</span>()</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>The type of this result</dd>
+</dl>
 </section>
 </li>
 </ul>

@@ -50,6 +50,14 @@ public class Injector {
     }
 
 
+    /**
+     * Creates a new instance of the given class by attempting to inject into a constructor,
+     * then injects the instance's fields and methods
+     *
+     * @param cls The cls to instantiate
+     * @param <T> The type of the class
+     * @return A new instance of {@code T}
+     */
     public <T> T createAndInject(Class<T> cls) {
         T t = create(cls);
         inject(t);
@@ -68,7 +76,8 @@ public class Injector {
         Constructor max = null;
 
         for (Constructor constructor : cls.getDeclaredConstructors()) {
-            if (Stream.of(constructor.getAnnotations()).anyMatch(a -> a.annotationType().isAnnotationPresent(InjectionAnnotation.class)) || constructor.getParameterCount() == 0) {
+            if (Stream.of(constructor.getAnnotations()).anyMatch(a -> a.annotationType().isAnnotationPresent(InjectionAnnotation.class)) || Stream.of(constructor.getParameters()).allMatch(p ->
+                    Stream.of(p.getAnnotations()).anyMatch(a -> a.annotationType().isAnnotationPresent(InjectionAnnotation.class)))) {
                 List<InjectionTarget> targets = Stream.of(constructor.getParameters()).map(InjectionTarget::new).collect(Collectors.toList());
                 if (targets.stream().allMatch(t -> this.binding.claims(t))) {
                     if (max == null || max.getParameterCount() < constructor.getParameterCount()) {
@@ -127,28 +136,31 @@ public class Injector {
     }
 
     private void tryInjection(Method method, Object src) {
-        if (Stream.of(method.getAnnotations()).anyMatch(a -> a.annotationType().isAnnotationPresent(InjectionAnnotation.class))) {
-            List<InjectionTarget> targets = Stream.of(method.getParameters()).map(InjectionTarget::new).collect(Collectors.toList());
+        if (method.getParameterCount() > 0) {
+            if (Stream.of(method.getAnnotations()).anyMatch(a -> a.annotationType().isAnnotationPresent(InjectionAnnotation.class)) ||
+                    Stream.of(method.getParameters()).allMatch(p -> Stream.of(p.getAnnotations()).anyMatch(a -> a.annotationType().isAnnotationPresent(InjectionAnnotation.class)))) {
+                List<InjectionTarget> targets = Stream.of(method.getParameters()).map(InjectionTarget::new).collect(Collectors.toList());
 
-            if (targets.stream().allMatch(t -> this.binding.claims(t))) {
-                List<Object> parameters = new ArrayList<>();
-                for (InjectionTarget target : targets) {
-                    InjectionResult result = this.binding.handle(target);
+                if (targets.stream().allMatch(t -> this.binding.claims(t))) {
+                    List<Object> parameters = new ArrayList<>();
+                    for (InjectionTarget target : targets) {
+                        InjectionResult result = this.binding.handle(target);
 
-                    if (result.type() == InjectionResult.Type.SET) {
-                        parameters.add(result.value());
-                    } else if (result.type() == InjectionResult.Type.ERROR) {
-                        throw new InjectionException(String.valueOf(result.type()));
-                    } else {
-                        return;
+                        if (result.type() == InjectionResult.Type.SET) {
+                            parameters.add(result.value());
+                        } else if (result.type() == InjectionResult.Type.ERROR) {
+                            throw new InjectionException(String.valueOf(result.type()));
+                        } else {
+                            return;
+                        }
                     }
-                }
 
-                method.trySetAccessible();
-                try {
-                    method.invoke(src, parameters.toArray());
-                } catch (IllegalAccessException | InvocationTargetException e) {
-                    throw new InjectionException("Failed to inject into method " + method.getName(), e);
+                    method.trySetAccessible();
+                    try {
+                        method.invoke(src, parameters.toArray());
+                    } catch (IllegalAccessException | InvocationTargetException e) {
+                        throw new InjectionException("Failed to inject into method " + method.getName(), e);
+                    }
                 }
             }
         }
