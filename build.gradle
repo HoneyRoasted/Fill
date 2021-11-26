@@ -22,11 +22,14 @@ dependencies {
 
 task ghpagesJavadocs(type: Javadoc) {
     destinationDir = file("/docs")
+
+    source = sourceSets.main.allJava
+    classpath = configurations.runtimeClasspath
 }
 
 task fatJar(type: Jar) {
     from configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
-    from sourceSets.main.java
+    with jar
 
     classifier("fat")
 }
@@ -35,6 +38,10 @@ task javadocJar(type: Jar) {
     from javadoc
 
     classifier("javadoc")
+}
+
+artifacts {
+    archives javadocJar, fatJar
 }
 
 publishing {
