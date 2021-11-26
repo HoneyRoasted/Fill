@@ -43,6 +43,9 @@ public class Injector {
         this.binding = binding;
     }
 
+    /**
+     * @return A {@link Builder} with all the bindings of this {@link Injector}
+     */
     public Builder toBuilder() {
         Builder builder = builder();
         builder.bind(this.binding);

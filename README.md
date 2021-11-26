@@ -16,4 +16,5 @@ dependencies {
     implementation 'com.github.HoneyRoasted:Fill:Version'
 }
 ```
-Alternatively, you can download the repository and run the `build.sh` script.
+Additionally, Fill is continuously built with [GitHub actions](https://github.com/HoneyRoasted/Fill/actions). You
+may also download the repository and build from source using the `build.sh` script.

@@ -20,7 +20,7 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
 }
 
-javadoc {
+task ghpagesJavadocs(type: Javadoc) {
     destinationDir = file("/docs")
 }
 
