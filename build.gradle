@@ -3,6 +3,9 @@ plugins {
     id 'maven-publish'
 }
 
+sourceCompatibility = 1.16
+targetCompatibility = 1.16
+
 group 'honeyroasted.fill'
 version '0.0.0'
 
@@ -12,7 +15,7 @@ repositories {
 }
 
 dependencies {
-    implementation("com.github.HoneyRoasted:JavaType:e2809f5cd6")
+    implementation("com.github.HoneyRoasted:JavaType:1.0.1")
 
     testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
 }
@@ -33,12 +36,6 @@ task javadocJar(type: Jar) {
 
     classifier("javadoc")
 }
-
-task jars
-jars.dependsOn clean
-jars.dependsOn jar
-jars.dependsOn fatJar
-jars.dependsOn javadocJar
 
 publishing {
     publications {

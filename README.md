@@ -16,3 +16,4 @@ dependencies {
     implementation 'com.github.HoneyRoasted:Fill:Version'
 }
 ```
+Alternatively, you can download the repository and run the `build.sh` script.
