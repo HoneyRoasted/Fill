@@ -31,6 +31,8 @@ task fatJar(type: Jar) {
     from configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
     with jar
 
+    exclude("**/module-info.class")
+
     classifier("fat")
 }
 
