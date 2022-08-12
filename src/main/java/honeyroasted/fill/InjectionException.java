@@ -18,7 +18,7 @@ public class InjectionException extends RuntimeException {
      * Creates a new {@link InjectionException} with the given message and cause
      *
      * @param message The error message
-     * @param cause The cause of the error
+     * @param cause   The cause of the error
      */
     public InjectionException(String message, Throwable cause) {
         super(message, cause);

@@ -1,8 +1,8 @@
 package honeyroasted.fill;
 
 
-import honeyroasted.javatype.Types;
-import honeyroasted.javatype.informal.TypeInformal;
+import honeyroasted.jype.TypeConcrete;
+import honeyroasted.jype.system.TypeSystem;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -14,16 +14,16 @@ import java.util.List;
  * Represents a target for a single value injection
  */
 public class InjectionTarget {
-    private TypeInformal type;
+    private TypeConcrete type;
     private List<? extends Annotation> annotations;
 
     /**
      * Creates a new {@link InjectionTarget}
      *
-     * @param type The type of this injection target
+     * @param type        The type of this injection target
      * @param annotations The annotations on this injection target
      */
-    public InjectionTarget(TypeInformal type, List<? extends Annotation> annotations) {
+    public InjectionTarget(TypeConcrete type, List<? extends Annotation> annotations) {
         this.type = type;
         this.annotations = annotations;
     }
@@ -31,25 +31,27 @@ public class InjectionTarget {
     /**
      * Creates a new {@link InjectionTarget} from a {@link Field}
      *
-     * @param field The field to target
+     * @param system The {@link TypeSystem} to use for resolving types
+     * @param field  The field to target
      */
-    public InjectionTarget(Field field) {
-        this(Types.type(field.getGenericType()), Arrays.asList(field.getAnnotations()));
+    public InjectionTarget(TypeSystem system, Field field) {
+        this(system.of(field.getGenericType()).get(), Arrays.asList(field.getAnnotations()));
     }
 
     /**
      * Creates a new {@link InjectionTarget} from a method {@link Parameter}
      *
+     * @param system    The {@link TypeSystem} to use for resolving types
      * @param parameter The parameter to target
      */
-    public InjectionTarget(Parameter parameter) {
-        this(Types.type(parameter.getParameterizedType()), Arrays.asList(parameter.getAnnotations()));
+    public InjectionTarget(TypeSystem system, Parameter parameter) {
+        this(system.of(parameter.getParameterizedType()).get(), Arrays.asList(parameter.getAnnotations()));
     }
 
     /**
-     * @return The {@link TypeInformal} of this {@link InjectionTarget}
+     * @return The {@link TypeConcrete} of this {@link InjectionTarget}
      */
-    public TypeInformal type() {
+    public TypeConcrete type() {
         return this.type;
     }
 

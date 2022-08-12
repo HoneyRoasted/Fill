@@ -1,7 +1,6 @@
 package honeyroasted.fill.bindings;
 
-import honeyroasted.javatype.Types;
-import honeyroasted.javatype.informal.TypeInformal;
+import honeyroasted.jype.TypeConcrete;
 
 import java.lang.annotation.Annotation;
 
@@ -17,7 +16,7 @@ public interface Matchers {
      * @return A new {@link Matcher}
      */
     static Matcher annotation(Class<? extends Annotation> type) {
-        return target -> target.has(type);
+        return (target, system) -> target.has(type);
     }
 
     /**
@@ -27,7 +26,7 @@ public interface Matchers {
      * @return A new {@link Matcher}
      */
     static Matcher type(Class<?> type) {
-        return target -> Types.type(type).isAssignableTo(target.type());
+        return (target, system) -> system.isAssignableTo(system.of(type).get(), target.type());
     }
 
     /**
@@ -36,8 +35,8 @@ public interface Matchers {
      * @param type The type to match
      * @return A new {@link Matcher}
      */
-    static Matcher type(TypeInformal type) {
-        return target -> type.isAssignableTo(target.type());
+    static Matcher type(TypeConcrete type) {
+        return (target, system) -> system.isAssignableTo(type, target.type());
     }
 
 

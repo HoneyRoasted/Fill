@@ -4,7 +4,8 @@ import honeyroasted.fill.bindings.Binding;
 import honeyroasted.fill.bindings.Matcher;
 import honeyroasted.fill.bindings.Matchers;
 import honeyroasted.fill.bindings.SequenceBinding;
-import honeyroasted.javatype.informal.TypeInformal;
+import honeyroasted.jype.TypeConcrete;
+import honeyroasted.jype.system.TypeSystem;
 
 import java.lang.annotation.Annotation;
 import java.lang.invoke.MethodType;
@@ -23,6 +24,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
@@ -33,14 +35,16 @@ import java.util.stream.Stream;
  */
 public class Injector {
     private Binding binding;
+    private TypeSystem typeSystem;
 
     /**
      * Creates a new {@link Injector} with the given {@link Binding}
      *
      * @param binding The binding for this injector
      */
-    public Injector(Binding binding) {
+    public Injector(Binding binding, TypeSystem system) {
         this.binding = binding;
+        this.typeSystem = system;
     }
 
     /**
@@ -81,8 +85,8 @@ public class Injector {
         for (Constructor constructor : cls.getDeclaredConstructors()) {
             if (Stream.of(constructor.getAnnotations()).anyMatch(a -> a.annotationType().isAnnotationPresent(InjectionAnnotation.class)) || Stream.of(constructor.getParameters()).allMatch(p ->
                     Stream.of(p.getAnnotations()).anyMatch(a -> a.annotationType().isAnnotationPresent(InjectionAnnotation.class)))) {
-                List<InjectionTarget> targets = Stream.of(constructor.getParameters()).map(InjectionTarget::new).collect(Collectors.toList());
-                if (targets.stream().allMatch(t -> this.binding.claims(t))) {
+                List<InjectionTarget> targets = Stream.of(constructor.getParameters()).map(p -> new InjectionTarget(this.typeSystem, p)).collect(Collectors.toList());
+                if (targets.stream().allMatch(t -> this.binding.claims(this.typeSystem, t))) {
                     if (max == null || max.getParameterCount() < constructor.getParameterCount()) {
                         max = constructor;
                         maxTargets = targets;
@@ -94,7 +98,7 @@ public class Injector {
         if (max != null) {
             List<Object> parameters = new ArrayList<>();
             for (InjectionTarget target : maxTargets) {
-                InjectionResult result = this.binding.handle(target);
+                InjectionResult result = this.binding.handle(this.typeSystem, target);
 
                 if (result.type() == InjectionResult.Type.SET) {
                     parameters.add(result.value());
@@ -142,12 +146,12 @@ public class Injector {
         if (method.getParameterCount() > 0) {
             if (Stream.of(method.getAnnotations()).anyMatch(a -> a.annotationType().isAnnotationPresent(InjectionAnnotation.class)) ||
                     Stream.of(method.getParameters()).allMatch(p -> Stream.of(p.getAnnotations()).anyMatch(a -> a.annotationType().isAnnotationPresent(InjectionAnnotation.class)))) {
-                List<InjectionTarget> targets = Stream.of(method.getParameters()).map(InjectionTarget::new).collect(Collectors.toList());
+                List<InjectionTarget> targets = Stream.of(method.getParameters()).map(p -> new InjectionTarget(this.typeSystem, p)).collect(Collectors.toList());
 
-                if (targets.stream().allMatch(t -> this.binding.claims(t))) {
+                if (targets.stream().allMatch(t -> this.binding.claims(this.typeSystem, t))) {
                     List<Object> parameters = new ArrayList<>();
                     for (InjectionTarget target : targets) {
-                        InjectionResult result = this.binding.handle(target);
+                        InjectionResult result = this.binding.handle(this.typeSystem, target);
 
                         if (result.type() == InjectionResult.Type.SET) {
                             parameters.add(result.value());
@@ -171,15 +175,15 @@ public class Injector {
 
     private void tryInjection(Field field, Object src) {
         if (Stream.of(field.getAnnotations()).anyMatch(a -> a.annotationType().isAnnotationPresent(InjectionAnnotation.class))) {
-            InjectionTarget target = new InjectionTarget(field);
-            if (this.binding.claims(target)) {
+            InjectionTarget target = new InjectionTarget(this.typeSystem, field);
+            if (this.binding.claims(this.typeSystem, target)) {
                 field.trySetAccessible();
 
                 try {
                     Object obj = field.get(src);
 
                     if (Objects.equals(obj, getDefault(field.getType())) || obj instanceof DummyObject) {
-                        InjectionResult result = this.binding.handle(target);
+                        InjectionResult result = this.binding.handle(this.typeSystem, target);
                         if (result.type() == InjectionResult.Type.SET) {
                             Object value = result.value();
                             if (value != null) {
@@ -287,6 +291,7 @@ public class Injector {
      */
     public static class Builder {
         private List<Binding> bindings = new ArrayList<>();
+        private TypeSystem system = TypeSystem.GLOBAL;
 
         /**
          * Appends all the bindings from the given builder to this builder
@@ -296,6 +301,17 @@ public class Injector {
          */
         public Builder append(Builder other) {
             this.bindings.addAll(other.bindings);
+            return this;
+        }
+
+        /**
+         * Sets the {@link TypeSystem} to use for the resulting injector
+         *
+         * @param system The type system
+         * @return This, for method chaining
+         */
+        public Builder typeSystem(TypeSystem system) {
+            this.system = system;
             return this;
         }
 
@@ -350,7 +366,7 @@ public class Injector {
          * @param type The type to use
          * @return A new {@link BindingBuilder} referencing this {@link Builder}
          */
-        public BindingBuilder bind(TypeInformal type) {
+        public BindingBuilder bind(TypeConcrete type) {
             return new BindingBuilder(Matchers.type(type), this);
         }
 
@@ -358,7 +374,7 @@ public class Injector {
          * Creates a new {@link BindingBuilder} with a matcher that matches the given type and the given annotation,
          * the matcher builder may then be used to bind to a value and continue back into this builder
          *
-         * @param type The type to use
+         * @param type       The type to use
          * @param annotation The annotation to use
          * @return A new {@link BindingBuilder} referencing this {@link Builder}
          */
@@ -370,11 +386,11 @@ public class Injector {
          * Creates a new {@link BindingBuilder} with a matcher that matches the given type and the given annotation,
          * the matcher builder may then be used to bind to a value and continue back into this builder
          *
-         * @param type The type to use
+         * @param type       The type to use
          * @param annotation The annotation to use
          * @return A new {@link BindingBuilder} referencing this {@link Builder}
          */
-        public BindingBuilder bind(TypeInformal type, Class<? extends Annotation> annotation) {
+        public BindingBuilder bind(TypeConcrete type, Class<? extends Annotation> annotation) {
             return new BindingBuilder(Matchers.type(type).and(Matchers.annotation(annotation)), this);
         }
 
@@ -382,7 +398,7 @@ public class Injector {
          * @return A new {@link Injector} with the bindings from this {@link Builder}
          */
         public Injector build() {
-            return new Injector(new SequenceBinding(this.bindings));
+            return new Injector(new SequenceBinding(this.bindings), this.system);
         }
 
     }
@@ -442,7 +458,7 @@ public class Injector {
          * @param factory The instance to use
          * @return The parent builder, for method chaining
          */
-        public Builder to(Function<InjectionTarget, InjectionResult> factory) {
+        public Builder to(BiFunction<InjectionTarget, TypeSystem, InjectionResult> factory) {
             return this.builder.bind(this.matcher.to(factory));
         }
 

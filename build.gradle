@@ -3,11 +3,11 @@ plugins {
     id 'maven-publish'
 }
 
-sourceCompatibility = 1.16
-targetCompatibility = 1.16
+sourceCompatibility = 1.17
+targetCompatibility = 1.17
 
 group 'honeyroasted.fill'
-version '0.0.0'
+version '0.0.1'
 
 repositories {
     mavenCentral()
@@ -15,9 +15,9 @@ repositories {
 }
 
 dependencies {
-    implementation("com.github.HoneyRoasted:JavaType:1.0.1")
+    implementation("com.github.HoneyRoasted:Jype:0.0.6")
 
-    testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.9.0")
 }
 
 task ghpagesJavadocs(type: Javadoc) {
@@ -27,23 +27,20 @@ task ghpagesJavadocs(type: Javadoc) {
     classpath = configurations.runtimeClasspath
 }
 
-task fatJar(type: Jar) {
-    from configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
-    with jar
-
-    exclude("**/module-info.class")
-
-    classifier("fat")
-}
-
 task javadocJar(type: Jar) {
     from javadoc
 
     classifier("javadoc")
 }
 
+task sourceJar(type: Jar) {
+    from sourceSets.main.allSource
+
+    classifier("source")
+}
+
 artifacts {
-    archives javadocJar, fatJar
+    archives javadocJar, sourceJar
 }
 
 publishing {
@@ -52,6 +49,9 @@ publishing {
             artifactId = rootProject.name
 
             from components.java
+
+            artifact sourceJar
+            artifact javadocJar
         }
     }
 }

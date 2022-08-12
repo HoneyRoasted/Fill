@@ -1,5 +1,8 @@
+package honeyroasted.fill.test;
+
 import honeyroasted.fill.Injector;
-import honeyroasted.javatype.reflection.Token;
+import honeyroasted.jype.system.TypeSystem;
+import honeyroasted.jype.system.TypeToken;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -7,7 +10,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class Tests {
+public class InjectionTest {
 
     @Test
     public void test() {
@@ -15,8 +18,8 @@ public class Tests {
                 Injector.builder()
                         .bind(int.class).toInstance(52)
                         .bind(String.class, TestAnnotation.class).toInstance("test annotation")
-                        .bind(new Token<List<String>>(){}.resolve()).toInstance(Arrays.asList("hello", "world"))
-                        .bind(new Token<List<Integer>>(){}.resolve()).toInstance(Arrays.asList(1, 2, 3))
+                        .bind(TypeSystem.GLOBAL.of(new TypeToken<List<String>>(){}).get()).toInstance(Arrays.asList("hello", "world"))
+                        .bind(TypeSystem.GLOBAL.of(new TypeToken<List<Integer>>(){}).get()).toInstance(Arrays.asList(1, 2, 3))
                         .bind(String.class).toInstance("string")
                         .build();
 

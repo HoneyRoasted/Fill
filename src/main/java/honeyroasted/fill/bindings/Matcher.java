@@ -2,15 +2,17 @@ package honeyroasted.fill.bindings;
 
 import honeyroasted.fill.InjectionResult;
 import honeyroasted.fill.InjectionTarget;
+import honeyroasted.jype.system.TypeSystem;
 
+import java.util.function.BiFunction;
+import java.util.function.BiPredicate;
 import java.util.function.Function;
-import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 /**
  * Represents a predicate which can match {@link InjectionTarget}s
  */
-public interface Matcher extends Predicate<InjectionTarget> {
+public interface Matcher extends BiPredicate<InjectionTarget, TypeSystem> {
 
     /**
      * Creates a {@link Binding} from this matcher which claims all {@link InjectionTarget}s this matcher matches,
@@ -19,7 +21,7 @@ public interface Matcher extends Predicate<InjectionTarget> {
      * @param factory The injection function
      * @return A new {@link Binding}
      */
-    default Binding to(Function<InjectionTarget, InjectionResult> factory) {
+    default Binding to(BiFunction<InjectionTarget, TypeSystem, InjectionResult> factory) {
         return new SimpleBinding(this, factory);
     }
 
@@ -31,7 +33,7 @@ public interface Matcher extends Predicate<InjectionTarget> {
      * @return A new {@link Binding}
      */
     default Binding toInstance(Object instance) {
-        return new SimpleBinding(this, target -> InjectionResult.of(instance));
+        return new SimpleBinding(this, (target, system) -> InjectionResult.of(instance));
     }
 
     /**
@@ -42,7 +44,7 @@ public interface Matcher extends Predicate<InjectionTarget> {
      * @return A new {@link Binding}
      */
     default Binding toProvider(Supplier<Object> provider) {
-        return new SimpleBinding(this, target -> InjectionResult.of(provider.get()));
+        return new SimpleBinding(this, (target, system) -> InjectionResult.of(provider.get()));
     }
 
     /**
@@ -53,21 +55,22 @@ public interface Matcher extends Predicate<InjectionTarget> {
      * @return A new {@link Binding}
      */
     default Binding toFactory(Function<InjectionTarget, Object> factory) {
-        return new SimpleBinding(this, target -> InjectionResult.of(factory.apply(target)));
+        return new SimpleBinding(this, (target, system) -> InjectionResult.of(factory.apply(target)));
     }
 
     @Override
-    default Matcher and(Predicate<? super InjectionTarget> other) {
-        return t -> test(t) && other.test(t);
+    default Matcher and(BiPredicate<? super InjectionTarget, ? super TypeSystem> other) {
+        return (target, system) -> test(target, system) && other.test(target, system);
+    }
+
+    @Override
+    default Matcher or(BiPredicate<? super InjectionTarget, ? super TypeSystem> other) {
+        return (target, system) -> test(target, system) || other.test(target, system);
     }
 
     @Override
     default Matcher negate() {
-        return t -> !test(t);
+        return (target, system) -> !test(target, system);
     }
 
-    @Override
-    default Matcher or(Predicate<? super InjectionTarget> other) {
-        return t -> test(t) || other.test(t);
-    }
 }

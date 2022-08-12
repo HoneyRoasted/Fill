@@ -10,7 +10,7 @@ public class InjectionResult {
     /**
      * Creates a new {@link InjectionResult}
      *
-     * @param type The type of this result
+     * @param type  The type of this result
      * @param value The value of this result
      */
     public InjectionResult(Type type, Object value) {

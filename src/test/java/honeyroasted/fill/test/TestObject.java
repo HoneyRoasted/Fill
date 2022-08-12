@@ -1,3 +1,5 @@
+package honeyroasted.fill.test;
+
 import honeyroasted.fill.Inject;
 
 import java.util.List;
@@ -26,7 +28,7 @@ public class TestObject {
 
     @Override
     public String toString() {
-        return "TestObject{" +
+        return "honeyroasted.fill.test.TestObject{" +
                 "x=" + x +
                 ", z='" + z + '\'' +
                 ", listStr=" + listStr +
