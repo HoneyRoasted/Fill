@@ -15,16 +15,19 @@ import java.util.List;
  */
 public class InjectionTarget {
     private TypeConcrete type;
+    private Class<?> rawType;
     private List<? extends Annotation> annotations;
 
     /**
      * Creates a new {@link InjectionTarget}
      *
      * @param type        The type of this injection target
+     * @param rawType     The raw {@link Class} type of this injection target
      * @param annotations The annotations on this injection target
      */
-    public InjectionTarget(TypeConcrete type, List<? extends Annotation> annotations) {
+    public InjectionTarget(TypeConcrete type, Class<?> rawType, List<? extends Annotation> annotations) {
         this.type = type;
+        this.rawType = rawType;
         this.annotations = annotations;
     }
 
@@ -35,7 +38,7 @@ public class InjectionTarget {
      * @param field  The field to target
      */
     public InjectionTarget(TypeSystem system, Field field) {
-        this(system.of(field.getGenericType()).get(), Arrays.asList(field.getAnnotations()));
+        this(system.of(field.getGenericType()).get(), field.getType(), Arrays.asList(field.getAnnotations()));
     }
 
     /**
@@ -45,7 +48,7 @@ public class InjectionTarget {
      * @param parameter The parameter to target
      */
     public InjectionTarget(TypeSystem system, Parameter parameter) {
-        this(system.of(parameter.getParameterizedType()).get(), Arrays.asList(parameter.getAnnotations()));
+        this(system.of(parameter.getParameterizedType()).get(), parameter.getType(), Arrays.asList(parameter.getAnnotations()));
     }
 
     /**
@@ -53,6 +56,13 @@ public class InjectionTarget {
      */
     public TypeConcrete type() {
         return this.type;
+    }
+
+    /**
+     * @return The raw {@link Class} type of this {@link InjectionTarget}
+     */
+    public Class<?> rawType() {
+        return this.rawType;
     }
 
     /**

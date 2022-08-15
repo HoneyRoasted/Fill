@@ -6,6 +6,7 @@ import honeyroasted.fill.bindings.Matchers;
 import honeyroasted.fill.bindings.SequenceBinding;
 import honeyroasted.jype.TypeConcrete;
 import honeyroasted.jype.system.TypeSystem;
+import honeyroasted.jype.system.TypeToken;
 
 import java.lang.annotation.Annotation;
 import java.lang.invoke.MethodType;
@@ -36,15 +37,19 @@ import java.util.stream.Stream;
 public class Injector {
     private Binding binding;
     private TypeSystem typeSystem;
+    private Injector.Tri<TypeSystem, InjectionTarget, Object> dummyObjectMatcher;
 
     /**
      * Creates a new {@link Injector} with the given {@link Binding}
      *
-     * @param binding The binding for this injector
+     * @param binding            The binding for this injector
+     * @param system             The {@link TypeSystem} to use for type logic
+     * @param dummyObjectMatcher The predicate to use for testing if a value is over-writable
      */
-    public Injector(Binding binding, TypeSystem system) {
+    public Injector(Binding binding, TypeSystem system, Injector.Tri<TypeSystem, InjectionTarget, Object> dummyObjectMatcher) {
         this.binding = binding;
         this.typeSystem = system;
+        this.dummyObjectMatcher = dummyObjectMatcher;
     }
 
     /**
@@ -103,7 +108,7 @@ public class Injector {
                 if (result.type() == InjectionResult.Type.SET) {
                     parameters.add(result.value());
                 } else if (result.type() == InjectionResult.Type.ERROR) {
-                    throw new InjectionException(String.valueOf(result.type()));
+                    throw new InjectionException(String.valueOf(result.value()));
                 } else {
                     throw new InjectionException("Cannot ignore constructor param");
                 }
@@ -182,7 +187,7 @@ public class Injector {
                 try {
                     Object obj = field.get(src);
 
-                    if (Objects.equals(obj, getDefault(field.getType())) || obj instanceof DummyObject) {
+                    if (this.dummyObjectMatcher.test(this.typeSystem, target, obj)) {
                         InjectionResult result = this.binding.handle(this.typeSystem, target);
                         if (result.type() == InjectionResult.Type.SET) {
                             Object value = result.value();
@@ -292,6 +297,9 @@ public class Injector {
     public static class Builder {
         private List<Binding> bindings = new ArrayList<>();
         private TypeSystem system = TypeSystem.GLOBAL;
+        private Injector.Tri<TypeSystem, InjectionTarget, Object> dummyObjectMatcher = (ts, it, obj) ->
+                Objects.equals(obj, getDefault(it.rawType())) || obj instanceof DummyObject;
+
 
         /**
          * Appends all the bindings from the given builder to this builder
@@ -312,6 +320,19 @@ public class Injector {
          */
         public Builder typeSystem(TypeSystem system) {
             this.system = system;
+            return this;
+        }
+
+        /**
+         * Sets the dummy objet matcher for this builder. By default, it is set to return true for any objet
+         * which is equal to the default field type for the given {@link InjectionTarget} or is an instance of
+         * {@link DummyObject}.
+         *
+         * @param matcher The new dummy objet matcher
+         * @return This, for method chaining
+         */
+        public Builder dummyObjectMatcher(Injector.Tri<TypeSystem, InjectionTarget, Object> matcher) {
+            this.dummyObjectMatcher = matcher;
             return this;
         }
 
@@ -371,6 +392,17 @@ public class Injector {
         }
 
         /**
+         * Creates a new {@link BindingBuilder} with a matcher that matches the given type, the matcher builder may then be
+         * used to bind to a value and continue back into this builder
+         *
+         * @param token The type to use
+         * @return A new {@link BindingBuilder} referencing this {@link Builder}
+         */
+        public BindingBuilder bind(TypeToken<?> token) {
+            return new BindingBuilder(Matchers.type(this.system.of(token).get()), this);
+        }
+
+        /**
          * Creates a new {@link BindingBuilder} with a matcher that matches the given type and the given annotation,
          * the matcher builder may then be used to bind to a value and continue back into this builder
          *
@@ -398,7 +430,7 @@ public class Injector {
          * @return A new {@link Injector} with the bindings from this {@link Builder}
          */
         public Injector build() {
-            return new Injector(new SequenceBinding(this.bindings), this.system);
+            return new Injector(new SequenceBinding(this.bindings), this.system, this.dummyObjectMatcher);
         }
 
     }
@@ -461,6 +493,28 @@ public class Injector {
         public Builder to(BiFunction<InjectionTarget, TypeSystem, InjectionResult> factory) {
             return this.builder.bind(this.matcher.to(factory));
         }
+
+    }
+
+    /**
+     * Small functional interface for a predicate with three arguments
+     *
+     * @param <A> Predicate argument type
+     * @param <B> Predicate argument type
+     * @param <C> Predicate argument type
+     */
+    @FunctionalInterface
+    public interface Tri<A, B, C> {
+
+        /**
+         * True or false, based on the implementation
+         *
+         * @param a Argument 1
+         * @param b Argument 2
+         * @param c Argument 3
+         * @return A boolean value
+         */
+        boolean test(A a, B b, C c);
 
     }
 

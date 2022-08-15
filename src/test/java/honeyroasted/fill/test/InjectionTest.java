@@ -18,8 +18,8 @@ public class InjectionTest {
                 Injector.builder()
                         .bind(int.class).toInstance(52)
                         .bind(String.class, TestAnnotation.class).toInstance("test annotation")
-                        .bind(TypeSystem.GLOBAL.of(new TypeToken<List<String>>(){}).get()).toInstance(Arrays.asList("hello", "world"))
-                        .bind(TypeSystem.GLOBAL.of(new TypeToken<List<Integer>>(){}).get()).toInstance(Arrays.asList(1, 2, 3))
+                        .bind(new TypeToken<List<String>>(){}).toInstance(Arrays.asList("hello", "world"))
+                        .bind(new TypeToken<List<Integer>>(){}).toInstance(Arrays.asList(1, 2, 3))
                         .bind(String.class).toInstance("string")
                         .build();
 
