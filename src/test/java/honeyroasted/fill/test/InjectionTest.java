@@ -1,8 +1,7 @@
 package honeyroasted.fill.test;
 
 import honeyroasted.fill.Injector;
-import honeyroasted.jype.system.TypeSystem;
-import honeyroasted.jype.system.TypeToken;
+import honeyroasted.jype.system.resolver.reflection.TypeToken;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;

@@ -1,6 +1,8 @@
 package honeyroasted.fill.bindings;
 
-import honeyroasted.jype.TypeConcrete;
+import honeyroasted.jype.system.solver.TypeBound;
+import honeyroasted.jype.system.solver.solvers.AssignabilityTypeSolver;
+import honeyroasted.jype.type.Type;
 
 import java.lang.annotation.Annotation;
 
@@ -26,7 +28,10 @@ public interface Matchers {
      * @return A new {@link Matcher}
      */
     static Matcher type(Class<?> type) {
-        return (target, system) -> system.isAssignableTo(system.of(type).get(), target.type());
+        return (target, system) -> new AssignabilityTypeSolver()
+                .bind(new TypeBound.Subtype(system.resolve(type).get(), target.type()))
+                .solve(system)
+                .success();
     }
 
     /**
@@ -35,8 +40,11 @@ public interface Matchers {
      * @param type The type to match
      * @return A new {@link Matcher}
      */
-    static Matcher type(TypeConcrete type) {
-        return (target, system) -> system.isAssignableTo(type, target.type());
+    static Matcher type(Type type) {
+        return (target, system) -> new AssignabilityTypeSolver()
+                .bind(new TypeBound.Subtype(type, target.type()))
+                .solve(system)
+                .success();
     }
 
 

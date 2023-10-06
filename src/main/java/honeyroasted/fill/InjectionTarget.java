@@ -1,8 +1,7 @@
 package honeyroasted.fill;
 
-
-import honeyroasted.jype.TypeConcrete;
 import honeyroasted.jype.system.TypeSystem;
+import honeyroasted.jype.type.Type;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -14,7 +13,7 @@ import java.util.List;
  * Represents a target for a single value injection
  */
 public class InjectionTarget {
-    private TypeConcrete type;
+    private Type type;
     private Class<?> rawType;
     private List<? extends Annotation> annotations;
 
@@ -25,7 +24,7 @@ public class InjectionTarget {
      * @param rawType     The raw {@link Class} type of this injection target
      * @param annotations The annotations on this injection target
      */
-    public InjectionTarget(TypeConcrete type, Class<?> rawType, List<? extends Annotation> annotations) {
+    public InjectionTarget(Type type, Class<?> rawType, List<? extends Annotation> annotations) {
         this.type = type;
         this.rawType = rawType;
         this.annotations = annotations;
@@ -38,7 +37,7 @@ public class InjectionTarget {
      * @param field  The field to target
      */
     public InjectionTarget(TypeSystem system, Field field) {
-        this(system.of(field.getGenericType()).get(), field.getType(), Arrays.asList(field.getAnnotations()));
+        this(system.resolve(field.getGenericType()).get(), field.getType(), Arrays.asList(field.getAnnotations()));
     }
 
     /**
@@ -48,13 +47,13 @@ public class InjectionTarget {
      * @param parameter The parameter to target
      */
     public InjectionTarget(TypeSystem system, Parameter parameter) {
-        this(system.of(parameter.getParameterizedType()).get(), parameter.getType(), Arrays.asList(parameter.getAnnotations()));
+        this(system.resolve(parameter.getParameterizedType()).get(), parameter.getType(), Arrays.asList(parameter.getAnnotations()));
     }
 
     /**
-     * @return The {@link TypeConcrete} of this {@link InjectionTarget}
+     * @return The {@link Type} of this {@link InjectionTarget}
      */
-    public TypeConcrete type() {
+    public Type type() {
         return this.type;
     }
 

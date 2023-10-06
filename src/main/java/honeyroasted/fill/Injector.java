@@ -4,27 +4,14 @@ import honeyroasted.fill.bindings.Binding;
 import honeyroasted.fill.bindings.Matcher;
 import honeyroasted.fill.bindings.Matchers;
 import honeyroasted.fill.bindings.SequenceBinding;
-import honeyroasted.jype.TypeConcrete;
 import honeyroasted.jype.system.TypeSystem;
-import honeyroasted.jype.system.TypeToken;
+import honeyroasted.jype.system.resolver.reflection.TypeToken;
+import honeyroasted.jype.type.Type;
 
 import java.lang.annotation.Annotation;
 import java.lang.invoke.MethodType;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
+import java.lang.reflect.*;
+import java.util.*;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -296,7 +283,7 @@ public class Injector {
      */
     public static class Builder {
         private List<Binding> bindings = new ArrayList<>();
-        private TypeSystem system = TypeSystem.GLOBAL;
+        private TypeSystem system = new TypeSystem();
         private Injector.Tri<TypeSystem, InjectionTarget, Object> dummyObjectMatcher = (ts, it, obj) ->
                 Objects.equals(obj, getDefault(it.rawType())) || obj instanceof DummyObject;
 
@@ -387,7 +374,7 @@ public class Injector {
          * @param type The type to use
          * @return A new {@link BindingBuilder} referencing this {@link Builder}
          */
-        public BindingBuilder bind(TypeConcrete type) {
+        public BindingBuilder bind(Type type) {
             return new BindingBuilder(Matchers.type(type), this);
         }
 
@@ -399,7 +386,7 @@ public class Injector {
          * @return A new {@link BindingBuilder} referencing this {@link Builder}
          */
         public BindingBuilder bind(TypeToken<?> token) {
-            return new BindingBuilder(Matchers.type(this.system.of(token).get()), this);
+            return new BindingBuilder(Matchers.type(this.system.resolve(token).get()), this);
         }
 
         /**
@@ -422,7 +409,7 @@ public class Injector {
          * @param annotation The annotation to use
          * @return A new {@link BindingBuilder} referencing this {@link Builder}
          */
-        public BindingBuilder bind(TypeConcrete type, Class<? extends Annotation> annotation) {
+        public BindingBuilder bind(Type type, Class<? extends Annotation> annotation) {
             return new BindingBuilder(Matchers.type(type).and(Matchers.annotation(annotation)), this);
         }
 

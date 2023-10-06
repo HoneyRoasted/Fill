@@ -15,7 +15,7 @@ repositories {
 }
 
 dependencies {
-    implementation("com.github.HoneyRoasted:Jype:0.0.7")
+    implementation("com.github.HoneyRoasted:Jype:0.0.8")
 
     testImplementation("org.junit.jupiter:junit-jupiter:5.9.0")
 }
