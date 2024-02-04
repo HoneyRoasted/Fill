@@ -1,6 +1,7 @@
 package honeyroasted.fill.test;
 
 import honeyroasted.fill.Injector;
+import honeyroasted.fill.reflect.ReflectionInjector;
 import honeyroasted.jype.system.resolver.reflection.TypeToken;
 import org.junit.jupiter.api.Test;
 
@@ -14,12 +15,13 @@ public class InjectionTest {
     @Test
     public void test() {
         Injector injector =
-                Injector.builder()
+                ReflectionInjector.builder()
                         .bind(int.class).toInstance(52)
                         .bind(String.class, TestAnnotation.class).toInstance("test annotation")
                         .bind(new TypeToken<List<String>>(){}).toInstance(Arrays.asList("hello", "world"))
                         .bind(new TypeToken<List<Integer>>(){}).toInstance(Arrays.asList(1, 2, 3))
                         .bind(String.class).toInstance("string")
+                        .bind(boolean.class, "namedBoolean").toInstance(true)
                         .build();
 
         TestObject obj = injector.createAndInject(TestObject.class);
@@ -35,6 +37,10 @@ public class InjectionTest {
         assertEquals("string", obj.z);
         assertEquals("string", obj.name);
         assertEquals("string", obj.desc);
+
+        assertEquals(true, obj.namedBoolean);
+        assertEquals(false, obj.aBoolean);
+        System.out.println(obj);
     }
 
 }

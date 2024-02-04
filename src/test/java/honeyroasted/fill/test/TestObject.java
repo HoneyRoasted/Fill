@@ -17,6 +17,9 @@ public class TestObject {
     public String name;
     public String desc;
 
+    @Inject public boolean aBoolean;
+    @Inject public boolean namedBoolean;
+
     public TestObject(@Inject String name) {
         this.name = name;
     }
@@ -28,7 +31,7 @@ public class TestObject {
 
     @Override
     public String toString() {
-        return "honeyroasted.fill.test.TestObject{" +
+        return "TestObject{" +
                 "x=" + x +
                 ", z='" + z + '\'' +
                 ", listStr=" + listStr +
@@ -37,6 +40,8 @@ public class TestObject {
                 ", k='" + k + '\'' +
                 ", name='" + name + '\'' +
                 ", desc='" + desc + '\'' +
+                ", aBoolean=" + aBoolean +
+                ", namedBoolean=" + namedBoolean +
                 '}';
     }
 }

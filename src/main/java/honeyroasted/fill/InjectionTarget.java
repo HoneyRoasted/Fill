@@ -13,6 +13,7 @@ import java.util.List;
  * Represents a target for a single value injection
  */
 public class InjectionTarget {
+    private String name;
     private Type type;
     private Class<?> rawType;
     private List<? extends Annotation> annotations;
@@ -20,11 +21,13 @@ public class InjectionTarget {
     /**
      * Creates a new {@link InjectionTarget}
      *
+     * @param name        The name of this injection target
      * @param type        The type of this injection target
      * @param rawType     The raw {@link Class} type of this injection target
      * @param annotations The annotations on this injection target
      */
-    public InjectionTarget(Type type, Class<?> rawType, List<? extends Annotation> annotations) {
+    public InjectionTarget(String name, Type type, Class<?> rawType, List<? extends Annotation> annotations) {
+        this.name = name;
         this.type = type;
         this.rawType = rawType;
         this.annotations = annotations;
@@ -37,7 +40,7 @@ public class InjectionTarget {
      * @param field  The field to target
      */
     public InjectionTarget(TypeSystem system, Field field) {
-        this(system.resolve(field.getGenericType()).get(), field.getType(), Arrays.asList(field.getAnnotations()));
+        this(field.getName(), system.tryResolve(field.getGenericType()), field.getType(), Arrays.asList(field.getAnnotations()));
     }
 
     /**
@@ -47,7 +50,14 @@ public class InjectionTarget {
      * @param parameter The parameter to target
      */
     public InjectionTarget(TypeSystem system, Parameter parameter) {
-        this(system.resolve(parameter.getParameterizedType()).get(), parameter.getType(), Arrays.asList(parameter.getAnnotations()));
+        this(parameter.getName(), system.tryResolve(parameter.getParameterizedType()), parameter.getType(), Arrays.asList(parameter.getAnnotations()));
+    }
+
+    /**
+     * @return The name of this {@link InjectionTarget}
+     */
+    public String name() {
+        return this.name;
     }
 
     /**
