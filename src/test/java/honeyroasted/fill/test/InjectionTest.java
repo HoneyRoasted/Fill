@@ -29,6 +29,7 @@ public class InjectionTest {
         assertEquals(52, obj.x);
 
         assertEquals(Arrays.asList("hello", "world"), obj.listStr);
+
         assertEquals(Arrays.asList("hello", "world"), obj.listWildObj);
         assertEquals(Arrays.asList(1, 2, 3), obj.listInt);
 

@@ -24,7 +24,7 @@ import java.util.function.Function;
  */
 public class ReflectionInjectorBuilder implements InjectorBuilder<ReflectionInjectorBuilder> {
     private List<Binding> bindings = new ArrayList<>();
-    private TypeSystem system = TypeSystem.RUNTIME;
+    private TypeSystem system = TypeSystem.SIMPLE_RUNTIME;
     private BiPredicate<InjectionTarget, Object> dummyObjectMatcher = (it, obj) ->
             Objects.equals(obj, getDefault(it.rawType())) || obj instanceof DummyObject;
 
