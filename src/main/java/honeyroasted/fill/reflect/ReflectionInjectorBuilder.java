@@ -3,8 +3,8 @@ package honeyroasted.fill.reflect;
 import honeyroasted.fill.DummyObject;
 import honeyroasted.fill.InjectionTarget;
 import honeyroasted.fill.Injector;
-import honeyroasted.fill.bindings.Binding;
 import honeyroasted.fill.InjectorBuilder;
+import honeyroasted.fill.bindings.Binding;
 import honeyroasted.fill.bindings.SequenceBinding;
 import honeyroasted.jype.system.TypeSystem;
 
@@ -24,7 +24,7 @@ import java.util.function.Function;
  */
 public class ReflectionInjectorBuilder implements InjectorBuilder<ReflectionInjectorBuilder> {
     private List<Binding> bindings = new ArrayList<>();
-    private TypeSystem system = TypeSystem.RUNTIME;
+    private TypeSystem system = TypeSystem.SIMPLE_RUNTIME;
     private BiPredicate<InjectionTarget, Object> dummyObjectMatcher = (it, obj) ->
             Objects.equals(obj, getDefault(it.rawType())) || obj instanceof DummyObject;
 

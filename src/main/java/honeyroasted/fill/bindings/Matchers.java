@@ -1,8 +1,7 @@
 package honeyroasted.fill.bindings;
 
 import honeyroasted.jype.system.resolver.reflection.TypeToken;
-import honeyroasted.jype.system.solver.TypeBound;
-import honeyroasted.jype.system.solver.solvers.CompatibilityTypeSolver;
+import honeyroasted.jype.system.solver.bounds.TypeBound;
 import honeyroasted.jype.type.Type;
 
 import java.lang.annotation.Annotation;
@@ -39,10 +38,7 @@ public interface Matchers {
      * @return A new {@link Matcher}
      */
     static Matcher type(java.lang.reflect.Type type) {
-        return (target, system) -> new CompatibilityTypeSolver()
-                .bind(new TypeBound.Compatible(system.tryResolve(type), target.type()))
-                .solve(system)
-                .success();
+        return (target, system) -> system.operations().isCompatible(system.tryResolve(type), target.type(), TypeBound.Compatible.Context.ASSIGNMENT);
     }
 
     /**
@@ -52,10 +48,7 @@ public interface Matchers {
      * @return A new {@link Matcher}
      */
     static Matcher type(Type type) {
-        return (target, system) -> new CompatibilityTypeSolver()
-                .bind(new TypeBound.Compatible(type, target.type()))
-                .solve(system)
-                .success();
+        return (target, system) -> system.operations().isCompatible(type, target.type(), TypeBound.Compatible.Context.ASSIGNMENT);
     }
 
     /**
@@ -65,10 +58,7 @@ public interface Matchers {
      * @return A new {@link Matcher}
      */
     static Matcher type(TypeToken<?> token) {
-        return (target, system) -> new CompatibilityTypeSolver()
-                .bind(new TypeBound.Compatible(token.resolve(system), target.type()))
-                .solve(system)
-                .success();
+        return (target, system) -> system.operations().isCompatible(token.resolve(system), target.type(), TypeBound.Compatible.Context.ASSIGNMENT);
     }
 
 

@@ -3,8 +3,8 @@ plugins {
     id 'maven-publish'
 }
 
-sourceCompatibility = 1.17
-targetCompatibility = 1.17
+sourceCompatibility = 1.21
+targetCompatibility = 1.21
 
 group 'honeyroasted.fill'
 version '0.0.3'
@@ -15,7 +15,7 @@ repositories {
 }
 
 dependencies {
-    implementation("com.github.HoneyRoasted:Jype:0.0.22")
+    implementation("com.github.HoneyRoasted:Jype:0.0.26")
 
     testImplementation("org.junit.jupiter:junit-jupiter:5.9.0")
 }
@@ -30,13 +30,13 @@ task ghpagesJavadocs(type: Javadoc) {
 task javadocJar(type: Jar) {
     from javadoc
 
-    classifier("javadoc")
+    archiveClassifier = "javadoc"
 }
 
 task sourceJar(type: Jar) {
     from sourceSets.main.allSource
 
-    classifier("source")
+    archiveClassifier = "source"
 }
 
 artifacts {
