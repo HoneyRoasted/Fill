@@ -10,4 +10,6 @@ import java.lang.annotation.RetentionPolicy;
 @InjectionAnnotation
 public @interface Inject {
 
+    String value() default "#EMPTY";
+
 }

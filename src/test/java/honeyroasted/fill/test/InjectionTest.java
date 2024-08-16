@@ -1,5 +1,6 @@
 package honeyroasted.fill.test;
 
+import honeyroasted.fill.Inject;
 import honeyroasted.fill.Injector;
 import honeyroasted.fill.reflect.ReflectionInjector;
 import honeyroasted.jype.system.resolver.reflection.TypeToken;
@@ -18,9 +19,11 @@ public class InjectionTest {
                 ReflectionInjector.builder()
                         .bind(int.class).toInstance(52)
                         .bind(String.class, TestAnnotation.class).toInstance("test annotation")
+                        .bind(String.class, TestValueAnnotation.class).toFactory(target -> target.get(TestValueAnnotation.class).value())
                         .bind(new TypeToken<List<String>>(){}).toInstance(Arrays.asList("hello", "world"))
                         .bind(new TypeToken<List<Integer>>(){}).toInstance(Arrays.asList(1, 2, 3))
-                        .bind(String.class).toInstance("string")
+                        .bind(String.class, "qualified").toInstance("qualified")
+                        .bind(String.class, Inject.class).toInstance("string")
                         .bind(boolean.class, "namedBoolean").toInstance(true)
                         .build();
 
@@ -34,10 +37,13 @@ public class InjectionTest {
         assertEquals(Arrays.asList(1, 2, 3), obj.listInt);
 
         assertEquals("test annotation", obj.k);
+        assertEquals("hello factory", obj.testFactory);
 
         assertEquals("string", obj.z);
         assertEquals("string", obj.name);
         assertEquals("string", obj.desc);
+
+        assertEquals("qualified", obj.qualified);
 
         assertEquals(true, obj.namedBoolean);
         assertEquals(false, obj.aBoolean);

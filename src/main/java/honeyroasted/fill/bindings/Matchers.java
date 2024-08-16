@@ -1,5 +1,6 @@
 package honeyroasted.fill.bindings;
 
+import honeyroasted.fill.Inject;
 import honeyroasted.jype.system.resolver.reflection.TypeToken;
 import honeyroasted.jype.system.solver.bounds.TypeBound;
 import honeyroasted.jype.type.Type;
@@ -18,7 +19,7 @@ public interface Matchers {
      * @return A new {@link Matcher}
      */
     static Matcher name(String name) {
-        return (target, system) -> target.name().equals(name);
+        return (target, system) -> target.name().equals(name) || (target.has(Inject.class) && target.get(Inject.class).value().equals(name));
     }
 
     /**

@@ -16,6 +16,9 @@ public class TestObject {
 
     public String name;
     public String desc;
+    public String qualified;
+
+    @TestValueAnnotation("hello factory") public String testFactory;
 
     @Inject public boolean aBoolean;
     @Inject public boolean namedBoolean;
@@ -24,9 +27,12 @@ public class TestObject {
         this.name = name;
     }
 
-    @Inject
-    public void setDesc(String desc) {
+    public void setDesc(@Inject String desc) {
         this.desc = desc;
+    }
+
+    public void qualified(@Inject("qualified") String qualified) {
+        this.qualified = qualified;
     }
 
     @Override
@@ -40,6 +46,8 @@ public class TestObject {
                 ", k='" + k + '\'' +
                 ", name='" + name + '\'' +
                 ", desc='" + desc + '\'' +
+                ", qualified='" + qualified + '\'' +
+                ", testFactory='" + testFactory + '\'' +
                 ", aBoolean=" + aBoolean +
                 ", namedBoolean=" + namedBoolean +
                 '}';
