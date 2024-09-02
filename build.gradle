@@ -7,7 +7,7 @@ sourceCompatibility = 1.21
 targetCompatibility = 1.21
 
 group 'honeyroasted.fill'
-version '0.0.3'
+version '0.0.4'
 
 repositories {
     mavenCentral()
@@ -15,7 +15,9 @@ repositories {
 }
 
 dependencies {
-    implementation("com.github.HoneyRoasted:Jype:0.0.26")
+    implementation("com.github.HoneyRoasted:Jype:0.0.29",
+            "com.github.HoneyRoasted:Collect:0.0.10",
+            "com.github.HoneyRoasted:Almonds:0.0.17")
 
     testImplementation("org.junit.jupiter:junit-jupiter:5.9.0")
 }
