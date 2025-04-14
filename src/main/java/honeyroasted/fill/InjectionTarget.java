@@ -1,7 +1,7 @@
 package honeyroasted.fill;
 
-import honeyroasted.jype.system.TypeSystem;
-import honeyroasted.jype.type.Type;
+import honeyroasted.jype.system.JTypeSystem;
+import honeyroasted.jype.type.JType;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class InjectionTarget {
     private String name;
-    private Type type;
+    private JType type;
     private Class<?> rawType;
     private List<? extends Annotation> annotations;
 
@@ -26,7 +26,7 @@ public class InjectionTarget {
      * @param rawType     The raw {@link Class} type of this injection target
      * @param annotations The annotations on this injection target
      */
-    public InjectionTarget(String name, Type type, Class<?> rawType, List<? extends Annotation> annotations) {
+    public InjectionTarget(String name, JType type, Class<?> rawType, List<? extends Annotation> annotations) {
         this.name = name;
         this.type = type;
         this.rawType = rawType;
@@ -36,20 +36,20 @@ public class InjectionTarget {
     /**
      * Creates a new {@link InjectionTarget} from a {@link Field}
      *
-     * @param system The {@link TypeSystem} to use for resolving types
+     * @param system The {@link JTypeSystem} to use for resolving types
      * @param field  The field to target
      */
-    public InjectionTarget(TypeSystem system, Field field) {
+    public InjectionTarget(JTypeSystem system, Field field) {
         this(field.getName(), system.tryResolve(field.getGenericType()), field.getType(), Arrays.asList(field.getAnnotations()));
     }
 
     /**
      * Creates a new {@link InjectionTarget} from a method {@link Parameter}
      *
-     * @param system    The {@link TypeSystem} to use for resolving types
+     * @param system    The {@link JTypeSystem} to use for resolving types
      * @param parameter The parameter to target
      */
-    public InjectionTarget(TypeSystem system, Parameter parameter) {
+    public InjectionTarget(JTypeSystem system, Parameter parameter) {
         this(parameter.getName(), system.tryResolve(parameter.getParameterizedType()), parameter.getType(), Arrays.asList(parameter.getAnnotations()));
     }
 
@@ -61,9 +61,9 @@ public class InjectionTarget {
     }
 
     /**
-     * @return The {@link Type} of this {@link InjectionTarget}
+     * @return The {@link JType} of this {@link InjectionTarget}
      */
-    public Type type() {
+    public JType type() {
         return this.type;
     }
 

@@ -6,7 +6,7 @@ import honeyroasted.fill.InjectionTarget;
 import honeyroasted.fill.Injector;
 import honeyroasted.fill.bindings.Binding;
 import honeyroasted.fill.bindings.BindingBuilder;
-import honeyroasted.jype.system.TypeSystem;
+import honeyroasted.jype.system.JTypeSystem;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
@@ -26,7 +26,7 @@ import java.util.stream.Stream;
  */
 public class ReflectionInjector implements Injector {
     private Binding binding;
-    private TypeSystem typeSystem;
+    private JTypeSystem typeSystem;
     private BiPredicate<InjectionTarget, Object> dummyObjectMatcher;
 
     private Function<Class<?>, Collection<Field>> fieldAggregator;
@@ -37,13 +37,13 @@ public class ReflectionInjector implements Injector {
      * Creates a new {@link ReflectionInjector} with the given {@link Binding}
      *
      * @param binding               The binding for this injector
-     * @param system                The {@link TypeSystem} to use for type logic
+     * @param system                The {@link JTypeSystem} to use for type logic
      * @param dummyObjectMatcher    The predicate to use for testing if a value is over-writable
      * @param fieldAggregator       The function used to obtain injectable field candidates from a given {@link Class}
      * @param methodAggregator      The function used to obtain injectable method candidates from a given {@link Class}
      * @param constructorAggregator The function used to obtain injectable constructor candidates from a given {@link Class}
      */
-    public ReflectionInjector(Binding binding, TypeSystem system, BiPredicate<InjectionTarget, Object> dummyObjectMatcher, Function<Class<?>, Collection<Field>> fieldAggregator, Function<Class<?>, Collection<Method>> methodAggregator, Function<Class<?>, Collection<Constructor<?>>> constructorAggregator) {
+    public ReflectionInjector(Binding binding, JTypeSystem system, BiPredicate<InjectionTarget, Object> dummyObjectMatcher, Function<Class<?>, Collection<Field>> fieldAggregator, Function<Class<?>, Collection<Method>> methodAggregator, Function<Class<?>, Collection<Constructor<?>>> constructorAggregator) {
         this.binding = binding;
         this.typeSystem = system;
         this.dummyObjectMatcher = dummyObjectMatcher;

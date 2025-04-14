@@ -5,8 +5,8 @@ import honeyroasted.fill.bindings.BindingBuilder;
 import honeyroasted.fill.bindings.Matcher;
 import honeyroasted.fill.bindings.Matchers;
 import honeyroasted.fill.reflect.ReflectionInjectorBuilder;
-import honeyroasted.jype.system.resolver.reflection.TypeToken;
-import honeyroasted.jype.type.Type;
+import honeyroasted.jype.system.resolver.reflection.JTypeToken;
+import honeyroasted.jype.type.JType;
 
 import java.lang.annotation.Annotation;
 
@@ -54,7 +54,7 @@ public interface InjectorBuilder<T extends InjectorBuilder<T>> {
      * @param type The type to use
      * @return A new {@link BindingBuilder} referencing this {@link ReflectionInjectorBuilder}
      */
-    default BindingBuilder<T> bind(Type type) {
+    default BindingBuilder<T> bind(JType type) {
         return this.bind(Matchers.type(type));
     }
 
@@ -65,7 +65,7 @@ public interface InjectorBuilder<T extends InjectorBuilder<T>> {
      * @param token The type to use
      * @return A new {@link BindingBuilder} referencing this {@link ReflectionInjectorBuilder}
      */
-    default BindingBuilder<T> bind(TypeToken<?> token) {
+    default BindingBuilder<T> bind(JTypeToken<?> token) {
         return this.bind(Matchers.type(token));
     }
 
@@ -89,7 +89,7 @@ public interface InjectorBuilder<T extends InjectorBuilder<T>> {
      * @param annotation The annotation to use
      * @return A new {@link BindingBuilder} referencing this {@link ReflectionInjectorBuilder}
      */
-    default BindingBuilder<T> bind(Type type, Class<? extends Annotation> annotation) {
+    default BindingBuilder<T> bind(JType type, Class<? extends Annotation> annotation) {
         return this.bind(Matchers.type(type).and(Matchers.annotation(annotation)));
     }
 
@@ -101,7 +101,7 @@ public interface InjectorBuilder<T extends InjectorBuilder<T>> {
      * @param annotation The annotation to use
      * @return A new {@link BindingBuilder} referencing this {@link ReflectionInjectorBuilder}
      */
-    default BindingBuilder<T> bind(TypeToken<?> token, Class<? extends Annotation> annotation) {
+    default BindingBuilder<T> bind(JTypeToken<?> token, Class<? extends Annotation> annotation) {
         return this.bind(Matchers.type(token).and(Matchers.annotation(annotation)));
     }
 
@@ -125,7 +125,7 @@ public interface InjectorBuilder<T extends InjectorBuilder<T>> {
      * @param name The name to use
      * @return A new {@link BindingBuilder} referencing this {@link ReflectionInjectorBuilder}
      */
-    default BindingBuilder<T> bind(Type type, String name) {
+    default BindingBuilder<T> bind(JType type, String name) {
         return this.bind(Matchers.type(type).and(Matchers.name(name)));
     }
 
@@ -137,7 +137,7 @@ public interface InjectorBuilder<T extends InjectorBuilder<T>> {
      * @param name  The name to use
      * @return A new {@link BindingBuilder} referencing this {@link ReflectionInjectorBuilder}
      */
-    default BindingBuilder<T> bind(TypeToken<?> token, String name) {
+    default BindingBuilder<T> bind(JTypeToken<?> token, String name) {
         return this.bind(Matchers.type(token).and(Matchers.name(name)));
     }
 
@@ -163,7 +163,7 @@ public interface InjectorBuilder<T extends InjectorBuilder<T>> {
      * @param annotation The annotation to use
      * @return A new {@link BindingBuilder} referencing this {@link ReflectionInjectorBuilder}
      */
-    default BindingBuilder<T> bind(Type type, String name, Class<? extends Annotation> annotation) {
+    default BindingBuilder<T> bind(JType type, String name, Class<? extends Annotation> annotation) {
         return this.bind(Matchers.type(type).and(Matchers.annotation(annotation)).and(Matchers.name(name)));
     }
 
@@ -176,7 +176,7 @@ public interface InjectorBuilder<T extends InjectorBuilder<T>> {
      * @param annotation The annotation to use
      * @return A new {@link BindingBuilder} referencing this {@link ReflectionInjectorBuilder}
      */
-    default BindingBuilder<T> bind(TypeToken<?> token, String name, Class<? extends Annotation> annotation) {
+    default BindingBuilder<T> bind(JTypeToken<?> token, String name, Class<? extends Annotation> annotation) {
         return this.bind(Matchers.type(token).and(Matchers.annotation(annotation)).and(Matchers.name(name)));
     }
 

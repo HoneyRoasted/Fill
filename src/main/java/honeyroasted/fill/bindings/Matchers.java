@@ -1,9 +1,9 @@
 package honeyroasted.fill.bindings;
 
 import honeyroasted.fill.Inject;
-import honeyroasted.jype.system.resolver.reflection.TypeToken;
-import honeyroasted.jype.system.solver.constraints.TypeConstraints;
-import honeyroasted.jype.type.Type;
+import honeyroasted.jype.system.resolver.reflection.JTypeToken;
+import honeyroasted.jype.system.solver.constraints.JTypeConstraints;
+import honeyroasted.jype.type.JType;
 
 import java.lang.annotation.Annotation;
 
@@ -39,7 +39,7 @@ public interface Matchers {
      * @return A new {@link Matcher}
      */
     static Matcher type(java.lang.reflect.Type type) {
-        return (target, system) -> system.operations().isCompatible(system.tryResolve(type), target.type(), TypeConstraints.Compatible.Context.LOOSE_INVOCATION);
+        return (target, system) -> system.operations().isCompatible(system.tryResolve(type), target.type(), JTypeConstraints.Compatible.Context.LOOSE_INVOCATION);
     }
 
     /**
@@ -48,8 +48,8 @@ public interface Matchers {
      * @param type The type to match
      * @return A new {@link Matcher}
      */
-    static Matcher type(Type type) {
-        return (target, system) -> system.operations().isCompatible(type, target.type(), TypeConstraints.Compatible.Context.LOOSE_INVOCATION);
+    static Matcher type(JType type) {
+        return (target, system) -> system.operations().isCompatible(type, target.type(), JTypeConstraints.Compatible.Context.LOOSE_INVOCATION);
     }
 
     /**
@@ -58,8 +58,8 @@ public interface Matchers {
      * @param token The type to match
      * @return A new {@link Matcher}
      */
-    static Matcher type(TypeToken<?> token) {
-        return (target, system) -> system.operations().isCompatible(token.resolve(system), target.type(), TypeConstraints.Compatible.Context.LOOSE_INVOCATION);
+    static Matcher type(JTypeToken<?> token) {
+        return (target, system) -> system.operations().isCompatible(token.resolve(system), target.type(), JTypeConstraints.Compatible.Context.LOOSE_INVOCATION);
     }
 
 

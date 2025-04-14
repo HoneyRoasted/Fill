@@ -4,7 +4,7 @@ import honeyroasted.fill.InjectionResult;
 import honeyroasted.fill.InjectionTarget;
 import honeyroasted.fill.InjectorBuilder;
 import honeyroasted.fill.reflect.ReflectionInjectorBuilder;
-import honeyroasted.jype.system.TypeSystem;
+import honeyroasted.jype.system.JTypeSystem;
 
 import java.util.function.BiFunction;
 import java.util.function.Function;
@@ -65,7 +65,7 @@ public class BindingBuilder<T extends InjectorBuilder<T>> {
      * @param factory The instance to use
      * @return The parent builder, for method chaining
      */
-    public T to(BiFunction<InjectionTarget, TypeSystem, InjectionResult> factory) {
+    public T to(BiFunction<InjectionTarget, JTypeSystem, InjectionResult> factory) {
         return this.builder.bind(this.matcher.to(factory));
     }
 }

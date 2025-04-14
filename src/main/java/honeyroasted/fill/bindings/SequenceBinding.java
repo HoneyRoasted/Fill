@@ -3,7 +3,7 @@ package honeyroasted.fill.bindings;
 import honeyroasted.fill.InjectionException;
 import honeyroasted.fill.InjectionResult;
 import honeyroasted.fill.InjectionTarget;
-import honeyroasted.jype.system.TypeSystem;
+import honeyroasted.jype.system.JTypeSystem;
 
 import java.util.Arrays;
 import java.util.List;
@@ -35,12 +35,12 @@ public class SequenceBinding implements Binding {
     }
 
     @Override
-    public boolean claims(TypeSystem system, InjectionTarget target) {
+    public boolean claims(JTypeSystem system, InjectionTarget target) {
         return this.bindings.stream().anyMatch(b -> b.claims(system, target));
     }
 
     @Override
-    public InjectionResult handle(TypeSystem system, InjectionTarget target) {
+    public InjectionResult handle(JTypeSystem system, InjectionTarget target) {
         InjectionResult result = InjectionResult.ignore();
 
         for (Binding binding : this.bindings) {

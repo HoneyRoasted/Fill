@@ -6,7 +6,7 @@ import honeyroasted.fill.Injector;
 import honeyroasted.fill.InjectorBuilder;
 import honeyroasted.fill.bindings.Binding;
 import honeyroasted.fill.bindings.SequenceBinding;
-import honeyroasted.jype.system.TypeSystem;
+import honeyroasted.jype.system.JTypeSystem;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
@@ -24,7 +24,7 @@ import java.util.function.Function;
  */
 public class ReflectionInjectorBuilder implements InjectorBuilder<ReflectionInjectorBuilder> {
     private List<Binding> bindings = new ArrayList<>();
-    private TypeSystem system = TypeSystem.RUNTIME_REFLECTION;
+    private JTypeSystem system = JTypeSystem.RUNTIME_REFLECTION;
     private BiPredicate<InjectionTarget, Object> dummyObjectMatcher = (it, obj) ->
             Objects.equals(obj, getDefault(it.rawType())) || obj instanceof DummyObject;
 
@@ -45,12 +45,12 @@ public class ReflectionInjectorBuilder implements InjectorBuilder<ReflectionInje
     }
 
     /**
-     * Sets the {@link TypeSystem} to use for the resulting injector
+     * Sets the {@link JTypeSystem} to use for the resulting injector
      *
      * @param system The type system
      * @return This, for method chaining
      */
-    public ReflectionInjectorBuilder typeSystem(TypeSystem system) {
+    public ReflectionInjectorBuilder typeSystem(JTypeSystem system) {
         this.system = system;
         return this;
     }

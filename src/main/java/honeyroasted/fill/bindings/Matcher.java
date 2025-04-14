@@ -2,7 +2,7 @@ package honeyroasted.fill.bindings;
 
 import honeyroasted.fill.InjectionResult;
 import honeyroasted.fill.InjectionTarget;
-import honeyroasted.jype.system.TypeSystem;
+import honeyroasted.jype.system.JTypeSystem;
 
 import java.util.function.BiFunction;
 import java.util.function.BiPredicate;
@@ -12,7 +12,7 @@ import java.util.function.Supplier;
 /**
  * Represents a predicate which can match {@link InjectionTarget}s
  */
-public interface Matcher extends BiPredicate<InjectionTarget, TypeSystem> {
+public interface Matcher extends BiPredicate<InjectionTarget, JTypeSystem> {
 
     /**
      * Creates a {@link Binding} from this matcher which claims all {@link InjectionTarget}s this matcher matches,
@@ -21,7 +21,7 @@ public interface Matcher extends BiPredicate<InjectionTarget, TypeSystem> {
      * @param factory The injection function
      * @return A new {@link Binding}
      */
-    default Binding to(BiFunction<InjectionTarget, TypeSystem, InjectionResult> factory) {
+    default Binding to(BiFunction<InjectionTarget, JTypeSystem, InjectionResult> factory) {
         return new SimpleBinding(this, factory);
     }
 
@@ -59,12 +59,12 @@ public interface Matcher extends BiPredicate<InjectionTarget, TypeSystem> {
     }
 
     @Override
-    default Matcher and(BiPredicate<? super InjectionTarget, ? super TypeSystem> other) {
+    default Matcher and(BiPredicate<? super InjectionTarget, ? super JTypeSystem> other) {
         return (target, system) -> test(target, system) && other.test(target, system);
     }
 
     @Override
-    default Matcher or(BiPredicate<? super InjectionTarget, ? super TypeSystem> other) {
+    default Matcher or(BiPredicate<? super InjectionTarget, ? super JTypeSystem> other) {
         return (target, system) -> test(target, system) || other.test(target, system);
     }
 

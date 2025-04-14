@@ -3,7 +3,7 @@ package honeyroasted.fill.test;
 import honeyroasted.fill.Inject;
 import honeyroasted.fill.Injector;
 import honeyroasted.fill.reflect.ReflectionInjector;
-import honeyroasted.jype.system.resolver.reflection.TypeToken;
+import honeyroasted.jype.system.resolver.reflection.JTypeToken;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -20,8 +20,8 @@ public class InjectionTest {
                         .bind(int.class).toInstance(52)
                         .bind(String.class, TestAnnotation.class).toInstance("test annotation")
                         .bind(String.class, TestValueAnnotation.class).toFactory(target -> target.get(TestValueAnnotation.class).value())
-                        .bind(new TypeToken<List<String>>(){}).toInstance(Arrays.asList("hello", "world"))
-                        .bind(new TypeToken<List<Integer>>(){}).toInstance(Arrays.asList(1, 2, 3))
+                        .bind(new JTypeToken<List<String>>(){}).toInstance(Arrays.asList("hello", "world"))
+                        .bind(new JTypeToken<List<Integer>>(){}).toInstance(Arrays.asList(1, 2, 3))
                         .bind(String.class, "qualified").toInstance("qualified")
                         .bind(String.class, Inject.class).toInstance("string")
                         .bind(boolean.class, "namedBoolean").toInstance(true)
