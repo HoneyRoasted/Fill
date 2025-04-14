@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'honeyroasted.fill'
-version '0.0.5'
+version '0.0.6'
 
 repositories {
     mavenCentral()
@@ -23,7 +23,7 @@ java {
     }
 }
 
-tasks.register('ghpagesJavadocs', Javadoc) {
+tasks.register('htmlJavadocs', Javadoc) {
     destinationDir = file("/docs")
 
     source = sourceSets.main.allJava
