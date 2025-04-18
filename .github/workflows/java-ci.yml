@@ -75,6 +75,9 @@ jobs:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           tag: ${{ steps.extract-version.outputs.ver }}
 
+      - name: Check Files
+        run: ls -d */
+
       - name: Create Release
         if: steps.tag-check.outputs.exists == 'false' && steps.extract-version.outputs.ver != ''
         uses: ncipollo/release-action@v1
