@@ -85,11 +85,10 @@ jobs:
         if: steps.tag-check.outputs.exists == 'false' && steps.extract-version.outputs.ver != ''
         uses: ncipollo/release-action@v1
         with:
-          files: "**.jar"
           tag: ${{ steps.extract-version.outputs.ver }}
           generateReleaseNotes: true
           makeLatest: true
-          artifacts: "build/libs/**.jar"
+          artifacts: "**/build/libs/**.jar"
 
       - name: Clean Cache
         run: |
