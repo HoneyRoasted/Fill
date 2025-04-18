@@ -1,6 +1,10 @@
 name: Java CI
 
-on: [push, workflow_dispatch]
+on:
+  push:
+    branches:
+      - 'main'
+      - 'master'
 
 jobs:
   build_and_tag:
@@ -31,7 +35,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Artifacts
-          path: /build/libs
+          path: build/libs
 
       - name: List Files
         id: list-files
@@ -77,6 +81,14 @@ jobs:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           tag: ${{ steps.extract-version.outputs.ver }}
 
+      - name: Create Release
+        if: steps.tag-check.outputs.exists == 'false' && steps.extract-version.outputs.ver != ''
+        uses: softprops/action-gh-release@v2
+        with:
+          files: build/libs/*.jar
+          tag_name: ${{ steps.extract-version.outputs.ver }}
+          generate_release_notes: true
+          make_latest: true
 
       - name: Clean Cache
         run: |
