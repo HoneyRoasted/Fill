@@ -19,8 +19,8 @@ public class InjectionTest {
         Injector injector =
                 ReflectionInjector.builder()
                         .fieldAggregator(Aggregators.ALL_FIELDS)
-                        .bind(Object.class, "unAnnotated").toInstance("that's crazy")
-                        .bind(int.class).toInstance(52)
+                        .exactBind(int.class).toInstance(52)
+                        .exactBind(Object.class, "unAnnotated").toInstance("that's crazy")
                         .bind(String.class, TestAnnotation.class).toInstance("test annotation")
                         .bind(String.class, TestValueAnnotation.class).toFactory(target -> target.get(TestValueAnnotation.class).value())
                         .bind(new JTypeToken<List<String>>(){}).toInstance(Arrays.asList("hello", "world"))
