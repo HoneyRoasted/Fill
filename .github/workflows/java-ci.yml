@@ -28,9 +28,6 @@ jobs:
       - name: Test
         run: ./gradlew clean test
 
-      - name: Build
-        run: ./gradlew build
-
       - name: List Files
         id: list-files
         uses: mirko-felice/list-files-action@v3.0.5
@@ -75,8 +72,11 @@ jobs:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           tag: ${{ steps.extract-version.outputs.ver }}
 
-      - name: Check Files
-        run: find / -ls
+      - name: Permit Wrapper
+        run: chmod +x gradlew
+
+      - name: Build
+        run: ./gradlew build
 
       - name: Create Release
         if: steps.tag-check.outputs.exists == 'false' && steps.extract-version.outputs.ver != ''
