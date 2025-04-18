@@ -83,12 +83,13 @@ jobs:
 
       - name: Create Release
         if: steps.tag-check.outputs.exists == 'false' && steps.extract-version.outputs.ver != ''
-        uses: softprops/action-gh-release@v2
+        uses: ncipollo/release-action@v1
         with:
           files: "**.jar"
-          tag_name: ${{ steps.extract-version.outputs.ver }}
-          generate_release_notes: true
-          make_latest: true
+          tag: ${{ steps.extract-version.outputs.ver }}
+          generateReleaseNotes: true
+          makeLatest: true
+          artifacts: "build/libs/**.jar"
 
       - name: Clean Cache
         run: |
