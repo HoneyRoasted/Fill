@@ -7,7 +7,7 @@ on:
       - 'master'
 
 jobs:
-  build_and_tag:
+  build_and_release:
     runs-on: ubuntu-latest
 
     steps:
@@ -85,7 +85,7 @@ jobs:
         if: steps.tag-check.outputs.exists == 'false' && steps.extract-version.outputs.ver != ''
         uses: softprops/action-gh-release@v2
         with:
-          files: ${{ github.workspace }}/build/libs/**.jar
+          files: "**.jar"
           tag_name: ${{ steps.extract-version.outputs.ver }}
           generate_release_notes: true
           make_latest: true
