@@ -76,7 +76,7 @@ jobs:
           tag: ${{ steps.extract-version.outputs.ver }}
 
       - name: Check Files
-        run: ls -d */
+        run: find / -ls
 
       - name: Create Release
         if: steps.tag-check.outputs.exists == 'false' && steps.extract-version.outputs.ver != ''
