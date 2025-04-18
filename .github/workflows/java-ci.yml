@@ -81,6 +81,9 @@ jobs:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           tag: ${{ steps.extract-version.outputs.ver }}
 
+      - name: Build
+        run: ./gradlew build
+
       - name: Create Release
         if: steps.tag-check.outputs.exists == 'false' && steps.extract-version.outputs.ver != ''
         uses: ncipollo/release-action@v1
@@ -88,7 +91,7 @@ jobs:
           tag: ${{ steps.extract-version.outputs.ver }}
           generateReleaseNotes: true
           makeLatest: true
-          artifacts: "**/build/libs/**.jar"
+          artifacts: "build/libs/*.jar"
 
       - name: Clean Cache
         run: |
