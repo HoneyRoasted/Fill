@@ -2,6 +2,7 @@ package honeyroasted.fill.test;
 
 import honeyroasted.fill.Inject;
 import honeyroasted.fill.Injector;
+import honeyroasted.fill.reflect.Aggregators;
 import honeyroasted.fill.reflect.ReflectionInjector;
 import honeyroasted.jype.system.resolver.reflection.JTypeToken;
 import org.junit.jupiter.api.Test;
@@ -17,6 +18,8 @@ public class InjectionTest {
     public void test() {
         Injector injector =
                 ReflectionInjector.builder()
+                        .fieldAggregator(Aggregators.ALL_FIELDS)
+                        .bind(Object.class, "unAnnotated").toInstance("that's crazy")
                         .bind(int.class).toInstance(52)
                         .bind(String.class, TestAnnotation.class).toInstance("test annotation")
                         .bind(String.class, TestValueAnnotation.class).toFactory(target -> target.get(TestValueAnnotation.class).value())
@@ -47,6 +50,7 @@ public class InjectionTest {
 
         assertEquals(true, obj.namedBoolean);
         assertEquals(false, obj.aBoolean);
+        assertEquals("that's crazy", obj.unAnnotated);
         System.out.println(obj);
     }
 

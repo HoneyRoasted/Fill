@@ -23,6 +23,8 @@ public class TestObject {
     @Inject public boolean aBoolean;
     @Inject public boolean namedBoolean;
 
+    public Object unAnnotated;
+
     public TestObject(@Inject String name) {
         this.name = name;
     }
@@ -50,6 +52,7 @@ public class TestObject {
                 ", testFactory='" + testFactory + '\'' +
                 ", aBoolean=" + aBoolean +
                 ", namedBoolean=" + namedBoolean +
+                ", unAnnotated=" + unAnnotated +
                 '}';
     }
 }
