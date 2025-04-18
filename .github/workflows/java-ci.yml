@@ -37,6 +37,12 @@ jobs:
           name: Artifacts
           path: build/libs
 
+      - name: Permit Wrapper 2
+        run: chmod +x gradlew
+
+      - name: Build 2
+        run: ./gradlew build
+
       - name: List Files
         id: list-files
         uses: mirko-felice/list-files-action@v3.0.5
@@ -54,8 +60,6 @@ jobs:
           echo "Files: $FILES"
           echo "$FILES" | jq -r -c '.[]' | while read file; do
             echo "Detected gradle file: $file"
-            path="$GITHUB_WORKSPACE${file:1}"
-            echo "Path: $path"
             ver=$(awk '$1 == "version"{gsub(/'\''/, "", $2); print $2; exit}' $path)
             if [ ! -z "$ver" ]; then
               echo "Found version: $ver"
@@ -80,12 +84,6 @@ jobs:
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           tag: ${{ steps.extract-version.outputs.ver }}
-
-      - name: Permit Wrapper 2
-        run: chmod +x gradlew
-
-      - name: Build 2
-        run: ./gradlew build
 
       - name: Create Release
         if: steps.tag-check.outputs.exists == 'false' && steps.extract-version.outputs.ver != ''
