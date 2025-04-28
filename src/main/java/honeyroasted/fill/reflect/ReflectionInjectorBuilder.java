@@ -2,7 +2,6 @@ package honeyroasted.fill.reflect;
 
 import honeyroasted.fill.DummyObject;
 import honeyroasted.fill.InjectionTarget;
-import honeyroasted.fill.Injector;
 import honeyroasted.fill.InjectorBuilder;
 import honeyroasted.fill.bindings.Binding;
 import honeyroasted.fill.bindings.SequenceBinding;
@@ -22,7 +21,7 @@ import java.util.function.Function;
 /**
  * An {@link InjectorBuilder} for building {@link ReflectionInjector}s
  */
-public class ReflectionInjectorBuilder implements InjectorBuilder<ReflectionInjectorBuilder> {
+public class ReflectionInjectorBuilder implements InjectorBuilder<ReflectionInjectorBuilder, ReflectionInjector> {
     private List<Binding> bindings = new ArrayList<>();
     private JTypeSystem system = JTypeSystem.RUNTIME_REFLECTION;
     private BiPredicate<InjectionTarget, Object> dummyObjectMatcher = (it, obj) ->
@@ -104,22 +103,14 @@ public class ReflectionInjectorBuilder implements InjectorBuilder<ReflectionInje
         return this;
     }
 
-    /**
-     * Adds one or more bindings to this builder
-     *
-     * @param bindings The bindings to add
-     * @return This, for method chaining
-     */
     @Override
     public ReflectionInjectorBuilder bind(Binding... bindings) {
         Collections.addAll(this.bindings, bindings);
         return this;
     }
 
-    /**
-     * @return A new {@link ReflectionInjector} with the bindings from this {@link ReflectionInjectorBuilder}
-     */
-    public Injector build() {
+    @Override
+    public ReflectionInjector build() {
         return new ReflectionInjector(new SequenceBinding(this.bindings), this.system, this.dummyObjectMatcher, this.fieldAggregator, this.methodAggregator, this.constructorAggregator);
     }
 

@@ -2,8 +2,18 @@ package honeyroasted.fill;
 
 /**
  * An injector capable of injecting fields, methods, and constructors
+ *
+ * @param <I> This type
+ * @param <B> The associated {@link InjectorBuilder} type
  */
-public interface Injector {
+public interface Injector<I extends Injector<I, B>, B extends InjectorBuilder<B, I>> {
+
+    /**
+     * Copies this {@link Injector}'s settings into a builder of the appropriate type, and returns it.
+     *
+     * @return A new builder with this {@link Injector}'s settings
+     */
+    B toBuilder();
 
     /**
      * Creates a new instance of the given class by attempting to inject into a constructor,

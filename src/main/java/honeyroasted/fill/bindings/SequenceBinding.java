@@ -34,6 +34,14 @@ public class SequenceBinding implements Binding {
         this.bindings = bindings;
     }
 
+    /**
+     * Returns the children {@link Binding}s for this Sequence binding.
+     * @return The children {@link Binding}s
+     */
+    public List<Binding> bindings() {
+        return this.bindings;
+    }
+
     @Override
     public boolean claims(JTypeSystem system, InjectionTarget target) {
         return this.bindings.stream().anyMatch(b -> b.claims(system, target));

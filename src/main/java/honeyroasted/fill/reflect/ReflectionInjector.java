@@ -24,7 +24,7 @@ import java.util.stream.Stream;
 /**
  * An {@link Injector} utilizing reflection to inject into fields, methods, and constructors
  */
-public class ReflectionInjector implements Injector {
+public class ReflectionInjector implements Injector<ReflectionInjector, ReflectionInjectorBuilder> {
     private Binding binding;
     private JTypeSystem typeSystem;
     private BiPredicate<InjectionTarget, Object> dummyObjectMatcher;
@@ -52,9 +52,7 @@ public class ReflectionInjector implements Injector {
         this.constructorAggregator = constructorAggregator;
     }
 
-    /**
-     * @return A {@link ReflectionInjectorBuilder} with all the bindings of this {@link ReflectionInjector}
-     */
+    @Override
     public ReflectionInjectorBuilder toBuilder() {
         ReflectionInjectorBuilder builder = builder();
         builder.bind(this.binding);
