@@ -14,7 +14,7 @@ import java.lang.reflect.Type;
 public interface Matchers {
 
     /**
-     * Creates a {@link Matcher} that matches {@link  honeyroasted.fill.InjectionTarget}s by their names
+     * Creates a {@link Matcher} that matches {@link honeyroasted.fill.InjectionTarget}s by their names
      *
      * @param name The name to match
      * @return A new {@link Matcher}
@@ -35,7 +35,7 @@ public interface Matchers {
 
     /**
      * Creates a {@link Matcher} that matches {@link honeyroasted.fill.InjectionTarget}s with the given type, based
-     * on assignment rules. For example, if the given type is Object and the injection target type is Integer, this matcher will
+     * on assignment rules. For example, if the given type is Integer and the injection target type is Object, this matcher will
      * return true, since Integer can be assigned to Object. For an exact type match, use {@link Matchers#exactType(Type)}.
      *
      * @param type The type to match
@@ -46,8 +46,8 @@ public interface Matchers {
     }
 
     /**
-     * Creates a {@link Matcher} tht matches {@link  honeyroasted.fill.InjectionTarget} with  given type, based
-     * on exact type equality. For example, if the given type is Object nd the injection target type is Integer, this matcher will
+     * Creates a {@link Matcher} that matches {@link honeyroasted.fill.InjectionTarget}s with the given type, based
+     * on exact type equality. For example, if the given type is Object and the injection target type is Integer, this matcher will
      * return false, since Integer does not equal Object. For a type match based on assignment rules, use {@link Matchers#type(Type)}.
      *
      * @param type The type to match
@@ -59,7 +59,7 @@ public interface Matchers {
 
     /**
      * Creates a {@link Matcher} that matches {@link honeyroasted.fill.InjectionTarget}s with the given type, based
-     * on assignment rules. For example, if the given type is Object and the given type is Integer, this matcher will
+     * on assignment rules. For example, if the given type is Integer and the injection target type is Object, this matcher will
      * return true, since Integer can be assigned to Object. For an exact type match, use {@link Matchers#exactType(JType)}.
      *
      * @param type The type to match
@@ -70,8 +70,8 @@ public interface Matchers {
     }
 
     /**
-     * Creates a {@link Matcher} tht matches {@link  honeyroasted.fill.InjectionTarget} with  given type, based
-     * on exact type equality. For example, if the given type is Object nd the injection target type is Integer, this matcher will
+     * Creates a {@link Matcher} that matches {@link honeyroasted.fill.InjectionTarget}s with the given type, based
+     * on exact type equality. For example, if the given type is Object and the injection target type is Integer, this matcher will
      * return false, since Integer does not equal Object. For a type match based on assignment rules, use {@link Matchers#type(JType)}.
      *
      * @param type The type to match
@@ -83,7 +83,7 @@ public interface Matchers {
 
     /**
      * Creates a {@link Matcher} that matches {@link honeyroasted.fill.InjectionTarget}s with the given type, based
-     * on assignment rules. For example, if the given type is Object and the given type is Integer, this matcher will
+     * on assignment rules. For example, if the given type is Integer and the injection target type is Object, this matcher will
      * return true, since Integer can be assigned to Object. For an exact type match, use {@link Matchers#exactType(JTypeToken)}.
      *
      * @param token The type to match
@@ -94,8 +94,8 @@ public interface Matchers {
     }
 
     /**
-     * Creates a {@link Matcher} tht matches {@link  honeyroasted.fill.InjectionTarget} with  given type, based
-     * on exact type equality. For example, if the given type is Object nd the injection target type is Integer, this matcher will
+     * Creates a {@link Matcher} that matches {@link honeyroasted.fill.InjectionTarget}s with the given type, based
+     * on exact type equality. For example, if the given type is Object and the injection target type is Integer, this matcher will
      * return false, since Integer does not equal Object. For a type match based on assignment rules, use {@link Matchers#type(JTypeToken)}.
      *
      * @param token The type to match

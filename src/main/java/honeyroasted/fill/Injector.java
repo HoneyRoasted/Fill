@@ -46,7 +46,7 @@ public interface Injector<I extends Injector<I, B>, B extends InjectorBuilder<B,
     void inject(Object object);
 
     /**
-     * Attempts to inject the appropriate static fields, and call the appropriate static injection methods, on the given object
+     * Attempts to inject the appropriate static fields, and call the appropriate static injection methods, on the given class
      *
      * @param cls The class to inject into
      */

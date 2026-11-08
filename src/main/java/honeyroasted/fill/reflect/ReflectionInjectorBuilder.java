@@ -55,11 +55,11 @@ public class ReflectionInjectorBuilder implements InjectorBuilder<ReflectionInje
     }
 
     /**
-     * Sets the dummy objet matcher for this builder. By default, it is set to return true for any objet
+     * Sets the dummy object matcher for this builder. By default, it is set to return true for any object
      * which is equal to the default field type for the given {@link InjectionTarget} or is an instance of
      * {@link DummyObject}.
      *
-     * @param matcher The new dummy objet matcher
+     * @param matcher The new dummy object matcher
      * @return This, for method chaining
      */
     public ReflectionInjectorBuilder dummyObjectMatcher(BiPredicate<InjectionTarget, Object> matcher) {
@@ -80,7 +80,7 @@ public class ReflectionInjectorBuilder implements InjectorBuilder<ReflectionInje
     }
 
     /**
-     * Sets the field method for this builder. By default, it is set to return all methods which are annotated
+     * Sets the method aggregator for this builder. By default, it is set to return all methods which are annotated
      * with an injection annotation.
      *
      * @param methodAggregator The new method aggregator
@@ -111,7 +111,7 @@ public class ReflectionInjectorBuilder implements InjectorBuilder<ReflectionInje
 
     @Override
     public ReflectionInjector build() {
-        return new ReflectionInjector(new SequenceBinding(this.bindings), this.system, this.dummyObjectMatcher, this.fieldAggregator, this.methodAggregator, this.constructorAggregator);
+        return new ReflectionInjector(new SequenceBinding(List.copyOf(this.bindings)), this.system, this.dummyObjectMatcher, this.fieldAggregator, this.methodAggregator, this.constructorAggregator);
     }
 
     private static Object getDefault(Class<?> cls) {

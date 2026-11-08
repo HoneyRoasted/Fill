@@ -4,7 +4,6 @@ import honeyroasted.fill.bindings.Binding;
 import honeyroasted.fill.bindings.BindingBuilder;
 import honeyroasted.fill.bindings.Matcher;
 import honeyroasted.fill.bindings.Matchers;
-import honeyroasted.fill.reflect.ReflectionInjectorBuilder;
 import honeyroasted.jype.system.resolver.reflection.JTypeToken;
 import honeyroasted.jype.type.JType;
 
@@ -37,7 +36,7 @@ public interface InjectorBuilder<B extends InjectorBuilder<B, I>, I extends Inje
      * used to bind to a value and continue back into this builder
      *
      * @param matcher The matcher to use
-     * @return A new {@link BindingBuilder} referencing this {@link ReflectionInjectorBuilder}
+     * @return A new {@link BindingBuilder} referencing this builder
      */
     default BindingBuilder<B, I> bind(Matcher matcher) {
         return new BindingBuilder<>(matcher, (B) this);
@@ -48,7 +47,7 @@ public interface InjectorBuilder<B extends InjectorBuilder<B, I>, I extends Inje
      * matcher builder may then be used to bind to a value and continue back into this builder
      *
      * @param type The type to use
-     * @return A new {@link BindingBuilder} referencing this {@link ReflectionInjectorBuilder}
+     * @return A new {@link BindingBuilder} referencing this builder
      */
     default BindingBuilder<B, I> bind(Type type) {
         return this.bind(Matchers.type(type));
@@ -59,7 +58,7 @@ public interface InjectorBuilder<B extends InjectorBuilder<B, I>, I extends Inje
      * matcher builder may then be used to bind to a value and continue back into this builder
      *
      * @param type The type to use
-     * @return A new {@link BindingBuilder} referencing this {@link ReflectionInjectorBuilder}
+     * @return A new {@link BindingBuilder} referencing this builder
      */
     default BindingBuilder<B, I> exactBind(Type type) {
         return this.bind(Matchers.exactType(type));
@@ -70,7 +69,7 @@ public interface InjectorBuilder<B extends InjectorBuilder<B, I>, I extends Inje
      * matcher builder may then be used to bind to a value and continue back into this builder
      *
      * @param type The type to use
-     * @return A new {@link BindingBuilder} referencing this {@link ReflectionInjectorBuilder}
+     * @return A new {@link BindingBuilder} referencing this builder
      */
     default BindingBuilder<B, I> bind(JType type) {
         return this.bind(Matchers.type(type));
@@ -81,7 +80,7 @@ public interface InjectorBuilder<B extends InjectorBuilder<B, I>, I extends Inje
      * matcher builder may then be used to bind to a value and continue back into this builder
      *
      * @param type The type to use
-     * @return A new {@link BindingBuilder} referencing this {@link ReflectionInjectorBuilder}
+     * @return A new {@link BindingBuilder} referencing this builder
      */
     default BindingBuilder<B, I> exactBind(JType type) {
         return this.bind(Matchers.exactType(type));
@@ -92,7 +91,7 @@ public interface InjectorBuilder<B extends InjectorBuilder<B, I>, I extends Inje
      * matcher builder may then be used to bind to a value and continue back into this builder
      *
      * @param token The type to use
-     * @return A new {@link BindingBuilder} referencing this {@link ReflectionInjectorBuilder}
+     * @return A new {@link BindingBuilder} referencing this builder
      */
     default BindingBuilder<B, I> bind(JTypeToken<?> token) {
         return this.bind(Matchers.type(token));
@@ -103,7 +102,7 @@ public interface InjectorBuilder<B extends InjectorBuilder<B, I>, I extends Inje
      * matcher builder may then be used to bind to a value and continue back into this builder
      *
      * @param token The type to use
-     * @return A new {@link BindingBuilder} referencing this {@link ReflectionInjectorBuilder}
+     * @return A new {@link BindingBuilder} referencing this builder
      */
     default BindingBuilder<B, I> exactBind(JTypeToken<?> token) {
         return this.bind(Matchers.exactType(token));
@@ -115,7 +114,7 @@ public interface InjectorBuilder<B extends InjectorBuilder<B, I>, I extends Inje
      *
      * @param type       The type to use
      * @param annotation The annotation to use
-     * @return A new {@link BindingBuilder} referencing this {@link ReflectionInjectorBuilder}
+     * @return A new {@link BindingBuilder} referencing this builder
      */
     default BindingBuilder<B, I> bind(Type type, Class<? extends Annotation> annotation) {
         return this.bind(Matchers.type(type).and(Matchers.annotation(annotation)));
@@ -127,7 +126,7 @@ public interface InjectorBuilder<B extends InjectorBuilder<B, I>, I extends Inje
      *
      * @param type       The type to use
      * @param annotation The annotation to use
-     * @return A new {@link BindingBuilder} referencing this {@link ReflectionInjectorBuilder}
+     * @return A new {@link BindingBuilder} referencing this builder
      */
     default BindingBuilder<B, I> exactBind(Type type, Class<? extends Annotation> annotation) {
         return this.bind(Matchers.exactType(type).and(Matchers.annotation(annotation)));
@@ -139,7 +138,7 @@ public interface InjectorBuilder<B extends InjectorBuilder<B, I>, I extends Inje
      *
      * @param type       The type to use
      * @param annotation The annotation to use
-     * @return A new {@link BindingBuilder} referencing this {@link ReflectionInjectorBuilder}
+     * @return A new {@link BindingBuilder} referencing this builder
      */
     default BindingBuilder<B, I> bind(JType type, Class<? extends Annotation> annotation) {
         return this.bind(Matchers.type(type).and(Matchers.annotation(annotation)));
@@ -151,7 +150,7 @@ public interface InjectorBuilder<B extends InjectorBuilder<B, I>, I extends Inje
      *
      * @param type       The type to use
      * @param annotation The annotation to use
-     * @return A new {@link BindingBuilder} referencing this {@link ReflectionInjectorBuilder}
+     * @return A new {@link BindingBuilder} referencing this builder
      */
     default BindingBuilder<B, I> exactBind(JType type, Class<? extends Annotation> annotation) {
         return this.bind(Matchers.exactType(type).and(Matchers.annotation(annotation)));
@@ -163,7 +162,7 @@ public interface InjectorBuilder<B extends InjectorBuilder<B, I>, I extends Inje
      *
      * @param token      The type to use
      * @param annotation The annotation to use
-     * @return A new {@link BindingBuilder} referencing this {@link ReflectionInjectorBuilder}
+     * @return A new {@link BindingBuilder} referencing this builder
      */
     default BindingBuilder<B, I> bind(JTypeToken<?> token, Class<? extends Annotation> annotation) {
         return this.bind(Matchers.type(token).and(Matchers.annotation(annotation)));
@@ -175,7 +174,7 @@ public interface InjectorBuilder<B extends InjectorBuilder<B, I>, I extends Inje
      *
      * @param token      The type to use
      * @param annotation The annotation to use
-     * @return A new {@link BindingBuilder} referencing this {@link ReflectionInjectorBuilder}
+     * @return A new {@link BindingBuilder} referencing this builder
      */
     default BindingBuilder<B, I> exactBind(JTypeToken<?> token, Class<? extends Annotation> annotation) {
         return this.bind(Matchers.exactType(token).and(Matchers.annotation(annotation)));
@@ -187,7 +186,7 @@ public interface InjectorBuilder<B extends InjectorBuilder<B, I>, I extends Inje
      *
      * @param type The type to use
      * @param name The name to use
-     * @return A new {@link BindingBuilder} referencing this {@link ReflectionInjectorBuilder}
+     * @return A new {@link BindingBuilder} referencing this builder
      */
     default BindingBuilder<B, I> bind(Type type, String name) {
         return this.bind(Matchers.type(type).and(Matchers.name(name)));
@@ -199,7 +198,7 @@ public interface InjectorBuilder<B extends InjectorBuilder<B, I>, I extends Inje
      *
      * @param type The type to use
      * @param name The name to use
-     * @return A new {@link BindingBuilder} referencing this {@link ReflectionInjectorBuilder}
+     * @return A new {@link BindingBuilder} referencing this builder
      */
     default BindingBuilder<B, I> exactBind(Type type, String name) {
         return this.bind(Matchers.exactType(type).and(Matchers.name(name)));
@@ -211,7 +210,7 @@ public interface InjectorBuilder<B extends InjectorBuilder<B, I>, I extends Inje
      *
      * @param type The type to use
      * @param name The name to use
-     * @return A new {@link BindingBuilder} referencing this {@link ReflectionInjectorBuilder}
+     * @return A new {@link BindingBuilder} referencing this builder
      */
     default BindingBuilder<B, I> bind(JType type, String name) {
         return this.bind(Matchers.type(type).and(Matchers.name(name)));
@@ -223,7 +222,7 @@ public interface InjectorBuilder<B extends InjectorBuilder<B, I>, I extends Inje
      *
      * @param type The type to use
      * @param name The name to use
-     * @return A new {@link BindingBuilder} referencing this {@link ReflectionInjectorBuilder}
+     * @return A new {@link BindingBuilder} referencing this builder
      */
     default BindingBuilder<B, I> exactBind(JType type, String name) {
         return this.bind(Matchers.exactType(type).and(Matchers.name(name)));
@@ -235,7 +234,7 @@ public interface InjectorBuilder<B extends InjectorBuilder<B, I>, I extends Inje
      *
      * @param token The type to use
      * @param name  The name to use
-     * @return A new {@link BindingBuilder} referencing this {@link ReflectionInjectorBuilder}
+     * @return A new {@link BindingBuilder} referencing this builder
      */
     default BindingBuilder<B, I> bind(JTypeToken<?> token, String name) {
         return this.bind(Matchers.type(token).and(Matchers.name(name)));
@@ -247,7 +246,7 @@ public interface InjectorBuilder<B extends InjectorBuilder<B, I>, I extends Inje
      *
      * @param token The type to use
      * @param name  The name to use
-     * @return A new {@link BindingBuilder} referencing this {@link ReflectionInjectorBuilder}
+     * @return A new {@link BindingBuilder} referencing this builder
      */
     default BindingBuilder<B, I> exactBind(JTypeToken<?> token, String name) {
         return this.bind(Matchers.exactType(token).and(Matchers.name(name)));
@@ -260,7 +259,7 @@ public interface InjectorBuilder<B extends InjectorBuilder<B, I>, I extends Inje
      * @param type       The type to use
      * @param name       The name to use
      * @param annotation The annotation to use
-     * @return A new {@link BindingBuilder} referencing this {@link ReflectionInjectorBuilder}
+     * @return A new {@link BindingBuilder} referencing this builder
      */
     default BindingBuilder<B, I> bind(Type type, String name, Class<? extends Annotation> annotation) {
         return this.bind(Matchers.type(type).and(Matchers.annotation(annotation)).and(Matchers.name(name)));
@@ -273,7 +272,7 @@ public interface InjectorBuilder<B extends InjectorBuilder<B, I>, I extends Inje
      * @param type       The type to use
      * @param name       The name to use
      * @param annotation The annotation to use
-     * @return A new {@link BindingBuilder} referencing this {@link ReflectionInjectorBuilder}
+     * @return A new {@link BindingBuilder} referencing this builder
      */
     default BindingBuilder<B, I> exactBind(Type type, String name, Class<? extends Annotation> annotation) {
         return this.bind(Matchers.exactType(type).and(Matchers.annotation(annotation)).and(Matchers.name(name)));
@@ -286,7 +285,7 @@ public interface InjectorBuilder<B extends InjectorBuilder<B, I>, I extends Inje
      * @param type       The type to use
      * @param name       The name to use
      * @param annotation The annotation to use
-     * @return A new {@link BindingBuilder} referencing this {@link ReflectionInjectorBuilder}
+     * @return A new {@link BindingBuilder} referencing this builder
      */
     default BindingBuilder<B, I> bind(JType type, String name, Class<? extends Annotation> annotation) {
         return this.bind(Matchers.type(type).and(Matchers.annotation(annotation)).and(Matchers.name(name)));
@@ -299,7 +298,7 @@ public interface InjectorBuilder<B extends InjectorBuilder<B, I>, I extends Inje
      * @param type       The type to use
      * @param name       The name to use
      * @param annotation The annotation to use
-     * @return A new {@link BindingBuilder} referencing this {@link ReflectionInjectorBuilder}
+     * @return A new {@link BindingBuilder} referencing this builder
      */
     default BindingBuilder<B, I> exactBind(JType type, String name, Class<? extends Annotation> annotation) {
         return this.bind(Matchers.exactType(type).and(Matchers.annotation(annotation)).and(Matchers.name(name)));
@@ -312,20 +311,20 @@ public interface InjectorBuilder<B extends InjectorBuilder<B, I>, I extends Inje
      * @param token      The type to use
      * @param name       The name to use
      * @param annotation The annotation to use
-     * @return A new {@link BindingBuilder} referencing this {@link ReflectionInjectorBuilder}
+     * @return A new {@link BindingBuilder} referencing this builder
      */
     default BindingBuilder<B, I> bind(JTypeToken<?> token, String name, Class<? extends Annotation> annotation) {
         return this.bind(Matchers.type(token).and(Matchers.annotation(annotation)).and(Matchers.name(name)));
     }
 
     /**
-     * Creates a new {@link BindingBuilder} with a matcher that matches the given type (based on exact type equality)), the given 
+     * Creates a new {@link BindingBuilder} with a matcher that matches the given type (based on exact type equality), the given 
      * name and the given annotation, the matcher builder may then be used to bind to a value and continue back into this builder
      *
      * @param token      The type to use
      * @param name       The name to use
      * @param annotation The annotation to use
-     * @return A new {@link BindingBuilder} referencing this {@link ReflectionInjectorBuilder}
+     * @return A new {@link BindingBuilder} referencing this builder
      */
     default BindingBuilder<B, I> exactBind(JTypeToken<?> token, String name, Class<? extends Annotation> annotation) {
         return this.bind(Matchers.exactType(token).and(Matchers.annotation(annotation).and(Matchers.name(name))));

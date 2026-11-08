@@ -4,7 +4,6 @@ import honeyroasted.fill.InjectionResult;
 import honeyroasted.fill.InjectionTarget;
 import honeyroasted.fill.Injector;
 import honeyroasted.fill.InjectorBuilder;
-import honeyroasted.fill.reflect.ReflectionInjectorBuilder;
 import honeyroasted.jype.system.JTypeSystem;
 
 import java.util.function.BiFunction;
@@ -12,8 +11,8 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 /**
- * An intermediate builder that takes a {@link Matcher} and {@link ReflectionInjectorBuilder} and constructs a {@link Binding} and
- * adds it to the {@link ReflectionInjectorBuilder}
+ * An intermediate builder that takes a {@link Matcher} and {@link InjectorBuilder} and constructs a {@link Binding} and
+ * adds it to the {@link InjectorBuilder}
  */
 public class BindingBuilder<B extends InjectorBuilder<B, I>, I extends Injector<I, B>> {
     private Matcher matcher;
@@ -53,7 +52,7 @@ public class BindingBuilder<B extends InjectorBuilder<B, I>, I extends Injector<
     /**
      * Creates a binding with the given factory and adds it to the parent builder
      *
-     * @param factory The instance to use
+     * @param factory The factory to use
      * @return The parent builder, for method chaining
      */
     public B toFactory(Function<InjectionTarget, Object> factory) {
@@ -63,7 +62,7 @@ public class BindingBuilder<B extends InjectorBuilder<B, I>, I extends Injector<
     /**
      * Creates a binding with the given factory and adds it to the parent builder
      *
-     * @param factory The instance to use
+     * @param factory The factory to use
      * @return The parent builder, for method chaining
      */
     public B to(BiFunction<InjectionTarget, JTypeSystem, InjectionResult> factory) {

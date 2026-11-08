@@ -3,7 +3,6 @@ package honeyroasted.fill.reflect;
 import honeyroasted.fill.InjectionAnnotation;
 
 import java.lang.annotation.Annotation;
-import java.lang.invoke.MethodType;
 import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
@@ -27,7 +26,7 @@ public interface Aggregators {
      */
     Function<Class<?>, Collection<Field>> ANNOTATED_FIELDS = cls -> {
         Set<Field> fields = new LinkedHashSet<>();
-        getFields(cls, fields, true, false);
+        getFields(cls, fields, false);
         return fields;
     };
 
@@ -37,7 +36,7 @@ public interface Aggregators {
      */
     Function<Class<?>, Collection<Field>> ALL_FIELDS = cls -> {
         Set<Field> fields = new LinkedHashSet<>();
-        getFields(cls, fields, true, true);
+        getFields(cls, fields, true);
         return fields;
     };
 
@@ -55,7 +54,7 @@ public interface Aggregators {
 
     /**
      * An aggregator that produces all methods of a given class. This includes static methods, methods from superclasses,
-     * and private, protected, or package-protected methods.
+     * and private, protected, or package-protected methods. Methods declared in {@link Object} are excluded.
      */
     Function<Class<?>, Collection<Method>> ALL_METHODS = cls -> {
         Set<Method> methods = new LinkedHashSet<>();
@@ -92,60 +91,69 @@ public interface Aggregators {
         return false;
     }
 
-    private static void getFields(Class<?> cls, Collection<Field> fields, boolean first, boolean includeAll) {
-        if (cls == null) return;
+    private static boolean isCandidate(Method method, boolean includeAll) {
+        return includeAll || hasInjectionAnnotation(method) || (method.getParameterCount() > 0 && Stream.of(method.getParameters()).allMatch(Aggregators::hasInjectionAnnotation));
+    }
+
+    private static void getFields(Class<?> cls, Collection<Field> fields, boolean includeAll) {
+        if (cls == null) {
+            return;
+        }
 
         for (Field field : cls.getDeclaredFields()) {
-            if ((includeAll || hasInjectionAnnotation(field)) &&
-                    (first || !Modifier.isStatic(field.getModifiers()))) {
+            if (!field.isSynthetic() && (includeAll || hasInjectionAnnotation(field))) {
                 fields.add(field);
             }
         }
 
-        getFields(cls.getSuperclass(), fields, false, includeAll);
+        getFields(cls.getSuperclass(), fields, includeAll);
     }
 
     private static void getConstructors(Class<?> cls, Collection<Constructor<?>> constructors, boolean includeAll) {
-        if (cls == null) return;
+        if (cls == null) {
+            return;
+        }
 
-        for (Constructor<?> cons : cls.getConstructors()) {
-            if (includeAll || hasInjectionAnnotation(cons) || Stream.of(cons.getParameters()).allMatch(Aggregators::hasInjectionAnnotation)) {
+        for (Constructor<?> cons : cls.getDeclaredConstructors()) {
+            if (!cons.isSynthetic() && (includeAll || hasInjectionAnnotation(cons) || Stream.of(cons.getParameters()).allMatch(Aggregators::hasInjectionAnnotation))) {
                 constructors.add(cons);
             }
         }
     }
 
     private static void getMethods(Class<?> cls, Collection<Method> methods, boolean first, boolean includeAll, Set<Object> seen) {
-        if (cls == null) return;
+        if (cls == null || cls == Object.class) {
+            return;
+        }
 
         if (first) {
             for (Method method : cls.getMethods()) {
-                if (!Modifier.isStatic(method.getModifiers()) &&
-                        (includeAll || hasInjectionAnnotation(method) || (method.getParameterCount() > 0 && Stream.of(method.getParameters()).allMatch(Aggregators::hasInjectionAnnotation)))) {
-                    //Add all public methods
-                    methods.add(method);
-                }
-            }
-
-            for (Method method : cls.getDeclaredMethods()) {
-                if (Modifier.isStatic(method.getModifiers()) &&
-                        (includeAll || hasInjectionAnnotation(method) || (method.getParameterCount() > 0 && Stream.of(method.getParameters()).allMatch(Aggregators::hasInjectionAnnotation)))) {
-                    //Add all static methods
-                    methods.add(method);
+                if (!method.isSynthetic() && method.getDeclaringClass() != Object.class && !Modifier.isStatic(method.getModifiers())) {
+                    seen.add(methodKey(method));
+                    if (isCandidate(method, includeAll)) {
+                        //Add all public methods
+                        methods.add(method);
+                    }
                 }
             }
         }
 
         for (Method m : cls.getDeclaredMethods()) {
             int mods = m.getModifiers();
-            if (!Modifier.isStatic(mods)) {
-                if (Modifier.isProtected(mods) || (!Modifier.isPublic(mods) && !Modifier.isPrivate(mods))) { //Method is protected or package-protected
-                    if (includeAll || hasInjectionAnnotation(m) || (m.getParameterCount() > 0 && Stream.of(m.getParameters()).allMatch(Aggregators::hasInjectionAnnotation))) {
-                        Object key = methodKey(m);
-                        if (!seen.contains(key)) {
-                            seen.add(key);
-                            methods.add(m);
-                        }
+            if (m.isSynthetic()) {
+                continue;
+            }
+
+            if (Modifier.isStatic(mods) || Modifier.isPrivate(mods)) {
+                if (isCandidate(m, includeAll)) {
+                    methods.add(m);
+                }
+            } else if (Modifier.isProtected(mods) || !Modifier.isPublic(mods)) { //Method is protected or package-protected
+                Object key = methodKey(m);
+                if (!seen.contains(key)) {
+                    seen.add(key);
+                    if (isCandidate(m, includeAll)) {
+                        methods.add(m);
                     }
                 }
             }
@@ -155,7 +163,6 @@ public interface Aggregators {
     }
 
     private static Object methodKey(Method m) {
-        return Arrays.asList(m.getName(),
-                MethodType.methodType(m.getReturnType(), m.getParameterTypes()));
+        return Arrays.asList(m.getName(), Arrays.asList(m.getParameterTypes()));
     }
 }

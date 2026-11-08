@@ -1,13 +1,16 @@
 package honeyroasted.fill.reflect;
 
+import honeyroasted.fill.InjectionAnnotation;
 import honeyroasted.fill.InjectionException;
 import honeyroasted.fill.InjectionResult;
 import honeyroasted.fill.InjectionTarget;
 import honeyroasted.fill.Injector;
 import honeyroasted.fill.bindings.Binding;
-import honeyroasted.fill.bindings.BindingBuilder;
+import honeyroasted.fill.bindings.SequenceBinding;
 import honeyroasted.jype.system.JTypeSystem;
 
+import java.lang.annotation.Annotation;
+import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -54,8 +57,18 @@ public class ReflectionInjector implements Injector<ReflectionInjector, Reflecti
 
     @Override
     public ReflectionInjectorBuilder toBuilder() {
-        ReflectionInjectorBuilder builder = builder();
-        builder.bind(this.binding);
+        ReflectionInjectorBuilder builder = builder()
+                .typeSystem(this.typeSystem)
+                .dummyObjectMatcher(this.dummyObjectMatcher)
+                .fieldAggregator(this.fieldAggregator)
+                .methodAggregator(this.methodAggregator)
+                .constructorAggregator(this.constructorAggregator);
+
+        if (this.binding instanceof SequenceBinding sequence) {
+            builder.bind(sequence.bindings().toArray(new Binding[0]));
+        } else {
+            builder.bind(this.binding);
+        }
         return builder;
     }
 
@@ -63,6 +76,7 @@ public class ReflectionInjector implements Injector<ReflectionInjector, Reflecti
     public <T> T create(Class<T> cls) {
         List<InjectionTarget> maxTargets = null;
         Constructor max = null;
+        boolean ambiguous = false;
 
         for (Constructor constructor : this.constructorAggregator.apply(cls)) {
             List<InjectionTarget> targets = Stream.of(constructor.getParameters()).map(p -> new InjectionTarget(this.typeSystem, p)).collect(Collectors.toList());
@@ -70,8 +84,15 @@ public class ReflectionInjector implements Injector<ReflectionInjector, Reflecti
                 if (max == null || max.getParameterCount() < constructor.getParameterCount()) {
                     max = constructor;
                     maxTargets = targets;
+                    ambiguous = false;
+                } else if (max.getParameterCount() == constructor.getParameterCount()) {
+                    ambiguous = true;
                 }
             }
+        }
+
+        if (ambiguous) {
+            throw new InjectionException("Ambiguous injection constructors for " + cls.getName());
         }
 
         if (max != null) {
@@ -114,7 +135,7 @@ public class ReflectionInjector implements Injector<ReflectionInjector, Reflecti
     }
 
     private void tryInjection(Method method, Object src) {
-        if (method.getParameterCount() > 0) {
+        if (method.getParameterCount() > 0 || hasInjectionAnnotation(method)) {
             List<InjectionTarget> targets = Stream.of(method.getParameters()).map(p -> new InjectionTarget(this.typeSystem, p)).collect(Collectors.toList());
 
             if (targets.stream().allMatch(t -> this.binding.claims(this.typeSystem, t))) {
@@ -125,7 +146,7 @@ public class ReflectionInjector implements Injector<ReflectionInjector, Reflecti
                     if (result.type() == InjectionResult.Type.SET) {
                         parameters.add(result.value());
                     } else if (result.type() == InjectionResult.Type.ERROR) {
-                        throw new InjectionException(String.valueOf(result.type()));
+                        throw new InjectionException(String.valueOf(result.value()));
                     } else {
                         return;
                     }
@@ -157,7 +178,7 @@ public class ReflectionInjector implements Injector<ReflectionInjector, Reflecti
                             field.set(src, value);
                         }
                     } else if (result.type() == InjectionResult.Type.ERROR) {
-                        throw new InjectionException(String.valueOf(result.type()));
+                        throw new InjectionException(String.valueOf(result.value()));
                     }
                 }
             } catch (IllegalAccessException e) {
@@ -166,8 +187,17 @@ public class ReflectionInjector implements Injector<ReflectionInjector, Reflecti
         }
     }
 
+    private static boolean hasInjectionAnnotation(AnnotatedElement elm) {
+        for (Annotation anot : elm.getAnnotations()) {
+            if (anot.annotationType().isAnnotationPresent(InjectionAnnotation.class)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
-     * @return A new {@link BindingBuilder}
+     * @return A new {@link ReflectionInjectorBuilder}
      */
     public static ReflectionInjectorBuilder builder() {
         return new ReflectionInjectorBuilder();
